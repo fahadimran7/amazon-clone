@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked_architecture/constants/global_variables.dart';
+import 'package:stacked_architecture/ui/shared/widgets/busy_button.dart';
 import 'package:stacked_architecture/ui/styles/ui_helpers.dart';
 
 class AuthLayout extends StatelessWidget {
@@ -46,12 +47,9 @@ class AuthLayout extends StatelessWidget {
             ]
           ],
         ),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            minimumSize: const Size.fromHeight(50), // NEW
-          ),
-          onPressed: onMainButtonTapped,
-          child: Text(mainButtonText),
+        BusyButton(
+          onMainButtonTapped: onMainButtonTapped,
+          mainButtonText: mainButtonText,
         ),
         verticalSpaceRegular,
         const Text('OR'),
@@ -61,11 +59,15 @@ class AuthLayout extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(secondaryButtonText),
+              Text(
+                secondaryButtonText,
+                style: const TextStyle(fontSize: 16),
+              ),
               horizontalSpaceTiny,
               Text(
                 onSignUpTapped != null ? 'Sign up now' : 'Login',
                 style: const TextStyle(
+                  fontSize: 16,
                   color: GlobalVariables.secondaryColor,
                 ),
               )

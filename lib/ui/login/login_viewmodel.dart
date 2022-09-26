@@ -6,5 +6,13 @@ import 'package:stacked_services/stacked_services.dart';
 class LoginViewModel extends AuthViewModel {
   final _navigationService = locator<NavigationService>();
 
-  void navigateToSignUp() => _navigationService.navigateTo(Routes.signUpView);
+  void navigateToSignUp() {
+    _clearValidationMessages();
+    _navigationService.navigateTo(Routes.signUpView);
+  }
+
+  void _clearValidationMessages() {
+    setValidationMessage(null);
+    notifyListeners();
+  }
 }

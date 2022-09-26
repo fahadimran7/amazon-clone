@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_architecture/ui/shared/auth_layout.dart';
+import 'package:stacked_architecture/ui/shared/widgets/input_field.dart';
 import 'package:stacked_architecture/ui/styles/ui_helpers.dart';
 import 'package:stacked_architecture/ui/sign_up/sign_up_viewmodel.dart';
 import './sign_up_view.form.dart';
@@ -30,21 +31,20 @@ class SignUpView extends StatelessWidget with $SignUpView {
                   form: Form(
                     child: Column(
                       children: [
-                        TextField(
-                          decoration:
-                              const InputDecoration(labelText: 'Full Name'),
+                        InputField(
                           controller: fullNameController,
+                          label: 'Full Name',
                         ),
                         verticalSpaceSmall,
-                        TextField(
-                          decoration: const InputDecoration(labelText: 'Email'),
+                        InputField(
                           controller: emailController,
+                          label: 'Email',
                         ),
                         verticalSpaceSmall,
-                        TextField(
-                          decoration:
-                              const InputDecoration(labelText: 'Password'),
+                        InputField(
                           controller: passwordController,
+                          label: 'Password',
+                          isPassword: true,
                         ),
                       ],
                     ),

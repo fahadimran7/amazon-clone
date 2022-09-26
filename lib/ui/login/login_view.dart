@@ -4,6 +4,7 @@ import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_architecture/ui/login/login_view.form.dart';
 import 'package:stacked_architecture/ui/login/login_viewmodel.dart';
 import 'package:stacked_architecture/ui/shared/auth_layout.dart';
+import 'package:stacked_architecture/ui/shared/widgets/input_field.dart';
 import 'package:stacked_architecture/ui/styles/ui_helpers.dart';
 
 @FormView(
@@ -31,15 +32,15 @@ class LoginView extends StatelessWidget with $LoginView {
                   form: Form(
                     child: Column(
                       children: [
-                        TextField(
-                          decoration: const InputDecoration(labelText: 'Email'),
+                        InputField(
                           controller: emailController,
+                          label: 'Email',
                         ),
                         verticalSpaceSmall,
-                        TextField(
-                          decoration:
-                              const InputDecoration(labelText: 'Password'),
+                        InputField(
                           controller: passwordController,
+                          label: 'Password',
+                          isPassword: true,
                         ),
                       ],
                     ),
