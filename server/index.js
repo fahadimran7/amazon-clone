@@ -1,16 +1,23 @@
 const express = require('express');
 const connectToMongoDB = require('./config/db');
 
+// Load env vars
 require('dotenv').config();
 
+// DB connection
 connectToMongoDB();
 
 const app = express();
 
 const PORT = process.env.PORT || 3000;
 
-app.use('/posts', require('./routes/posts'));
+// Body parser
+app.use(express.json());
 
+// Route middleware
+app.use('/api/v1/auth', require('./routes/auth'));
+
+// Setup server
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Listening on port ${PORT}...`);
 });
