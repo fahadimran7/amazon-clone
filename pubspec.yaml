@@ -29,3 +29,12 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: SFPro
+      fonts:
+        - asset: assets/fonts/SFPro-Light.ttf
+        - asset: assets/fonts/SFPro-Regular.ttf
+        - asset: assets/fonts/SFPro-Medium.ttf
+        - asset: assets/fonts/SFPro-Semibold.ttf
+        - asset: assets/fonts/SFPro-Bold.ttf
+        - asset: assets/fonts/SFPro-Heavy.ttf

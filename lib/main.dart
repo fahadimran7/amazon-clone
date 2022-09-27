@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked_architecture/app/app.locator.dart';
-import 'package:stacked_architecture/constants/global_variables.dart';
+import 'package:stacked_architecture/ui/styles/app_colors.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'app/app.router.dart';
 
@@ -18,15 +18,13 @@ class MyApp extends StatelessWidget {
       title: 'Amazon Clone',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        fontFamily: 'SFPro',
         appBarTheme: const AppBarTheme(
           elevation: 0,
           iconTheme: IconThemeData(color: Colors.black),
         ),
-        scaffoldBackgroundColor: GlobalVariables.backgroundColor,
-        primarySwatch: Colors.blue,
-        colorScheme: const ColorScheme.light(
-          primary: GlobalVariables.secondaryColor,
-        ),
+        scaffoldBackgroundColor: AppColors.backgroundColor,
+        primarySwatch: AppColors.primaryBlack,
       ),
       navigatorKey: StackedService.navigatorKey,
       onGenerateRoute: StackedRouter().onGenerateRoute,

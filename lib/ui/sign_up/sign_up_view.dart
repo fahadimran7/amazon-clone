@@ -5,6 +5,7 @@ import 'package:stacked_architecture/ui/shared/auth_layout.dart';
 import 'package:stacked_architecture/ui/shared/widgets/input_field.dart';
 import 'package:stacked_architecture/ui/styles/ui_helpers.dart';
 import 'package:stacked_architecture/ui/sign_up/sign_up_viewmodel.dart';
+import 'package:stacked_architecture/utils/no_glow_scroll.dart';
 import './sign_up_view.form.dart';
 
 @FormView(fields: [
@@ -21,42 +22,51 @@ class SignUpView extends StatelessWidget with $SignUpView {
       onModelReady: (model) => listenToFormUpdated(model),
       onDispose: (model) => disposeForm(),
       viewModelBuilder: () => SignUpViewModel(),
-      builder: (context, model, child) => Scaffold(
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: ListView(
-              children: [
-                AuthLayout(
-                  form: Form(
-                    child: Column(
-                      children: [
-                        InputField(
-                          controller: fullNameController,
-                          label: 'Full Name',
+      builder: (context, model, child) => GestureDetector(
+        onTap: model.hideSoftKeyboard,
+        child: ScrollConfiguration(
+          behavior: NoGlowBehavior(),
+          child: Scaffold(
+            body: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: ListView(
+                  children: [
+                    AuthLayout(
+                      form: Form(
+                        child: Column(
+                          children: [
+                            InputField(
+                              controller: fullNameController,
+                              label: 'Full Name',
+                            ),
+                            verticalSpaceSmall,
+                            verticalSpaceTiny,
+                            InputField(
+                              controller: emailController,
+                              label: 'Email',
+                            ),
+                            verticalSpaceSmall,
+                            verticalSpaceTiny,
+                            InputField(
+                              controller: passwordController,
+                              label: 'Password',
+                              isPassword: true,
+                            ),
+                          ],
                         ),
-                        verticalSpaceSmall,
-                        InputField(
-                          controller: emailController,
-                          label: 'Email',
-                        ),
-                        verticalSpaceSmall,
-                        InputField(
-                          controller: passwordController,
-                          label: 'Password',
-                          isPassword: true,
-                        ),
-                      ],
+                      ),
+                      title: 'Create Account',
+                      mainButtonText: 'Create Account',
+                      onMainButtonTapped: model.saveData,
+                      validationMessage: model.validationMessage,
+                      secondaryButtonText: 'Already have an account?',
+                      onLoginTapped: model.navigateToLogin,
+                      isBusy: model.isBusy,
                     ),
-                  ),
-                  title: 'Create Account',
-                  mainButtonText: 'Create Account',
-                  onMainButtonTapped: model.saveData,
-                  validationMessage: model.validationMessage,
-                  secondaryButtonText: 'Already have an account?',
-                  onLoginTapped: model.navigateToLogin,
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ),

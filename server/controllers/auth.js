@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const bcrypt = require('bcryptjs');
 
 const createUserWithEmailAndPassword = async (req, res, next) => {
   const { fullName, email, password } = req.body;
@@ -36,4 +37,36 @@ const createUserWithEmailAndPassword = async (req, res, next) => {
   }
 };
 
-module.exports = { createUserWithEmailAndPassword };
+const loginUser = async (req, res, next) => {
+  const { email, password } = req.body;
+
+  // Check if user with email exists in the database
+  try {
+    const userFromDb = await User.findOne({ email });
+
+    if (!userFromDb) {
+      return res.status(400).json({
+        msg: 'No user record found with the email. The user may have been deleted.',
+      });
+    }
+
+    const isMatchPassword = await bcrypt.compare(password, userFromDb.password);
+
+    if (!isMatchPassword) {
+      return res.status(400).json({
+        msg: 'Incorrect email address or password.',
+      });
+    }
+
+    return res.status(200).json({
+      msg: 'Login success',
+    });
+  } catch (e) {
+    console.log(e);
+    return res.status(500).json({
+      error: e.message,
+    });
+  }
+};
+
+module.exports = { createUserWithEmailAndPassword, loginUser };

@@ -170,13 +170,13 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_User implements _User {
   _$_User(
-      {@JsonKey(name: '_id') this.id,
+      {@JsonKey(name: '_id') this.id = '',
       required this.fullName,
       required this.email,
       required this.password,
-      this.address,
-      this.type,
-      this.token});
+      this.address = '',
+      this.type = '',
+      this.token = ''});
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
@@ -190,10 +190,13 @@ class _$_User implements _User {
   @override
   final String password;
   @override
+  @JsonKey()
   final String? address;
   @override
+  @JsonKey()
   final String? type;
   @override
+  @JsonKey()
   final String? token;
 
   @override

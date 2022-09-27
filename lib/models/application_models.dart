@@ -5,13 +5,13 @@ part 'application_models.g.dart';
 @freezed
 abstract class User with _$User {
   factory User({
-    @JsonKey(name: '_id') String? id,
+    @Default('') @JsonKey(name: '_id') String? id,
     required String fullName,
     required String email,
     required String password,
-    String? address,
-    String? type,
-    String? token,
+    @Default('') String? address,
+    @Default('') String? type,
+    @Default('') String? token,
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

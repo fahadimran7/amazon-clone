@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:stacked_architecture/constants/global_variables.dart';
 import 'package:stacked_architecture/ui/shared/widgets/busy_button.dart';
+import 'package:stacked_architecture/ui/styles/app_colors.dart';
 import 'package:stacked_architecture/ui/styles/ui_helpers.dart';
 
 class AuthLayout extends StatelessWidget {
@@ -13,7 +13,8 @@ class AuthLayout extends StatelessWidget {
       required this.title,
       required this.secondaryButtonText,
       this.onSignUpTapped,
-      this.onLoginTapped})
+      this.onLoginTapped,
+      required this.isBusy})
       : super(key: key);
   final Widget form;
   final String? validationMessage;
@@ -21,24 +22,26 @@ class AuthLayout extends StatelessWidget {
   final String mainButtonText;
   final String title;
   final String secondaryButtonText;
+  final bool isBusy;
   final void Function()? onSignUpTapped;
   final void Function()? onLoginTapped;
 
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         verticalSpaceLarge,
         Text(
           title,
-          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+          style: const TextStyle(fontSize: 34, fontWeight: FontWeight.w500),
         ),
         verticalSpaceSmall,
         const Text(
-          'Continue to Amazon Shopping',
-          style: TextStyle(color: Colors.black54),
+          'Enter your email and password to create an account or login. Happy shopping :)',
+          style: TextStyle(color: Colors.black54, height: 1.4, fontSize: 15),
         ),
-        verticalSpaceMedium,
+        verticalSpaceLarge,
         form,
         verticalSpaceMedium,
         Column(
@@ -52,15 +55,20 @@ class AuthLayout extends StatelessWidget {
             ]
           ],
         ),
+        verticalSpaceRegular,
         BusyButton(
           onMainButtonTapped: onMainButtonTapped,
           mainButtonText: mainButtonText,
+          busy: isBusy,
         ),
         verticalSpaceRegular,
-        const Text(
-          'OR',
-          style: TextStyle(
-            color: Colors.black54,
+        const Align(
+          alignment: Alignment.center,
+          child: Text(
+            'OR',
+            style: TextStyle(
+              color: Colors.black54,
+            ),
           ),
         ),
         verticalSpaceRegular,
@@ -71,14 +79,15 @@ class AuthLayout extends StatelessWidget {
             children: [
               Text(
                 secondaryButtonText,
-                style: const TextStyle(fontSize: 16),
+                style: const TextStyle(fontSize: 15, color: Colors.black54),
               ),
               horizontalSpaceTiny,
               Text(
                 onSignUpTapped != null ? 'Sign up now' : 'Login',
                 style: const TextStyle(
-                  fontSize: 16,
-                  color: GlobalVariables.secondaryColor,
+                  fontSize: 15,
+                  color: AppColors.primaryBlack,
+                  fontWeight: FontWeight.w500,
                 ),
               )
             ],
