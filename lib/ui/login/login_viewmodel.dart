@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked_architecture/app/app.locator.dart';
 import 'package:stacked_architecture/app/app.logger.dart';
 import 'package:stacked_architecture/app/app.router.dart';
+import 'package:stacked_architecture/services/local_storage_service.dart';
 import 'package:stacked_architecture/utils/input_validators.dart';
 import 'package:stacked_architecture/services/authentication_service.dart';
 import 'package:stacked_architecture/ui/base/auth_viewmodel.dart';
@@ -12,6 +13,7 @@ class LoginViewModel extends AuthViewModel {
 
   final _navigationService = locator<NavigationService>();
   final _authenticationService = locator<AuthenticationService>();
+  final _localStorageService = locator<LocalStorageService>();
 
   void navigateToSignUp() {
     _clearValidationMessages();
@@ -35,6 +37,15 @@ class LoginViewModel extends AuthViewModel {
       log.v('Logged in successfully');
 
       log.v(authResponse['msg']);
+
+      // Save the token to shared prefs
+      final tokenSaved =
+          await _localStorageService.getValueFromStorage(key: 'x-auth-token');
+
+      log.v('token saved and read from loginViewModel: $tokenSaved');
+
+      // Navigate to home view
+
     } else {
       log.e(authResponse['error']);
       setValidationMessage(authResponse['error']);

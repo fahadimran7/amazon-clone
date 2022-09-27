@@ -1,13 +1,16 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:stacked_architecture/app/app.locator.dart';
 import 'package:stacked_architecture/app/app.logger.dart';
 import 'package:stacked_architecture/constants/global_variables.dart';
 import 'package:stacked_architecture/enums/user_types.dart';
 import 'package:stacked_architecture/models/application_models.dart';
+import 'package:stacked_architecture/services/local_storage_service.dart';
 
 class AuthenticationService {
   final log = getLogger('AuthenticationService');
+  final _localStorageService = locator<LocalStorageService>();
 
   User? currentUser;
 
@@ -32,10 +35,6 @@ class AuthenticationService {
       final authResponse = _handleAuthenticationResponse(
         res: res,
         onSuccess: () {
-          currentUser = User.fromJson(jsonDecode(res.body));
-
-          log.v('Current user set: $currentUser');
-
           return {
             'success': true,
             'msg':
@@ -65,13 +64,21 @@ class AuthenticationService {
 
       final authResponse = _handleAuthenticationResponse(
         res: res,
-        onSuccess: () {
+        onSuccess: () async {
+          currentUser = User.fromJson(jsonDecode(res.body)['user']);
+
+          log.v('Current user set: $currentUser');
+
+          await _localStorageService.saveToLocalStorage(
+              key: 'x-auth-token', value: currentUser!.token!);
+
           return {'success': true, 'msg': jsonDecode(res.body)['user']};
         },
       );
 
       return authResponse;
     } catch (e) {
+      log.e(e);
       return {
         'success': false,
         'error': 'General login failure. Please try again.'

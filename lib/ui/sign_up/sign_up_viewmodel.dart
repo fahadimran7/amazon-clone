@@ -27,10 +27,9 @@ class SignUpViewModel extends AuthViewModel {
     );
 
     if (authResponse['success'] == true) {
-      log.v(
-          'Account created successfully. User set ${_authenticationService.currentUser}');
-
       log.v(authResponse['msg']);
+
+      // Display Dialog to show that account has been created
     } else {
       log.e(authResponse['error']);
       setValidationMessage(authResponse['error']);
