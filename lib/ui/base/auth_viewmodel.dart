@@ -1,26 +1,38 @@
 import 'package:stacked/stacked.dart';
-import 'package:stacked_architecture/utils/input_validators.dart';
+import 'package:stacked_architecture/constants/input_validators.dart';
 
 abstract class AuthViewModel extends FormViewModel {
   @override
   void setFormStatus() {}
 
   void saveData() {
+    bool isValidForm;
     if (formValueMap.containsKey('fullName')) {
-      _runValidations(validateName: true);
+      isValidForm = _runValidations(validateName: true);
     } else {
-      _runValidations(validateName: false);
+      isValidForm = _runValidations(validateName: false);
+    }
+
+    if (!isValidForm) {
+      setValidationMessage(
+          'Invalid email address or password. Please check your input and try again.');
+      notifyListeners();
+    } else {
+      runAuthentication();
     }
   }
 
-  void _runValidations({bool validateName = false}) {
+  void runAuthentication() {}
+
+  bool _runValidations({bool validateName = false}) {
     if ((validateName
             ? !InputValidators.isValidFullName(formValueMap['fullName'])
             : false) ||
         !InputValidators.isValidEmail(formValueMap['email']) ||
         !InputValidators.isValidPassword(formValueMap['password'])) {
-      setValidationMessage('Please check your input and try again.');
+      return false;
     }
-    notifyListeners();
+
+    return true;
   }
 }

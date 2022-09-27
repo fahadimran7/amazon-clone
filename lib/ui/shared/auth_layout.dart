@@ -31,7 +31,12 @@ class AuthLayout extends StatelessWidget {
         verticalSpaceLarge,
         Text(
           title,
-          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+        ),
+        verticalSpaceSmall,
+        const Text(
+          'Continue to Amazon Shopping',
+          style: TextStyle(color: Colors.black54),
         ),
         verticalSpaceMedium,
         form,
@@ -52,7 +57,12 @@ class AuthLayout extends StatelessWidget {
           mainButtonText: mainButtonText,
         ),
         verticalSpaceRegular,
-        const Text('OR'),
+        const Text(
+          'OR',
+          style: TextStyle(
+            color: Colors.black54,
+          ),
+        ),
         verticalSpaceRegular,
         GestureDetector(
           onTap: onSignUpTapped ?? onLoginTapped,

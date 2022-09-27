@@ -1,5 +1,4 @@
 const User = require('../models/User');
-const bcrypt = require('bcryptjs');
 
 const createUserWithEmailAndPassword = async (req, res, next) => {
   const { fullName, email, password } = req.body;
@@ -14,23 +13,25 @@ const createUserWithEmailAndPassword = async (req, res, next) => {
       });
     }
 
-    // Hash user password
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
+    if (password.length < 6) {
+      return res.status(400).json({
+        msg: 'The password entered is weak. Try again with at least 6 characters.',
+      });
+    }
 
     let user = new User({
       fullName,
       email,
-      password: hashedPassword,
+      password: password,
     });
 
     user = await user.save();
 
-    return res.status(201).json(user);
+    return res.status(200).json(user);
   } catch (e) {
     console.log(e);
     return res.status(500).json({
-      error: e._message,
+      error: e.message,
     });
   }
 };

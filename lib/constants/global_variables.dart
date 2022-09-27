@@ -15,4 +15,6 @@ class GlobalVariables {
   static const Color greyBackgroundCOlor = Color(0xffebecee);
   static var selectedNavBarColor = Colors.cyan[800]!;
   static const unselectedNavBarColor = Colors.black87;
+
+  static const uri = 'http://192.168.18.132:3000';
 }

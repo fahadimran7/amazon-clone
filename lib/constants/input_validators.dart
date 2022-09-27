@@ -12,7 +12,7 @@ class InputValidators {
   }
 
   static isValidPassword(password) {
-    if (password == null || password.isEmpty || password.length < 6) {
+    if (password == null || password.isEmpty) {
       return false;
     }
 
