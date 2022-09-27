@@ -66,7 +66,7 @@ class AuthenticationService {
       final authResponse = _handleAuthenticationResponse(
         res: res,
         onSuccess: () {
-          return {'success': true, 'msg': jsonDecode(res.body)['msg']};
+          return {'success': true, 'msg': jsonDecode(res.body)['user']};
         },
       );
 

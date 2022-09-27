@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const createUserWithEmailAndPassword = async (req, res, next) => {
   const { fullName, email, password } = req.body;
@@ -58,9 +59,17 @@ const loginUser = async (req, res, next) => {
       });
     }
 
-    return res.status(200).json({
-      msg: 'Login success',
-    });
+    // Create new JWT token and return
+    const token = jwt.sign(
+      {
+        user: {
+          id: userFromDb.id,
+        },
+      },
+      process.env.JWT_SECRET
+    );
+
+    return res.status(200).json({ user: { token, ...userFromDb._doc } });
   } catch (e) {
     console.log(e);
     return res.status(500).json({
