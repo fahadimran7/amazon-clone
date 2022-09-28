@@ -38,7 +38,7 @@ class SignUpViewModel extends AuthViewModel {
       final dialogResult = await _dialogService.showCustomDialog(
         variant: DialogType.basic,
         customData: BasicDialogStatus.success,
-        title: 'Account Creation Success',
+        title: 'Account Created',
         description:
             'You\'re account has been created successfully. You can now login and start using the app.',
         mainButtonTitle: 'Take me to login',

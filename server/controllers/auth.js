@@ -17,7 +17,7 @@ const createUserWithEmailAndPassword = async (req, res, next) => {
 
     if (password.length < 6) {
       return res.status(400).json({
-        msg: 'The password entered is weak. Try again with at least 6 characters.',
+        msg: 'The password entered is too weak. Passwords must be at least 6 characters long.',
       });
     }
 

@@ -44,7 +44,7 @@ class LoginViewModel extends AuthViewModel {
       log.v('token saved and read from loginViewModel: $tokenSaved');
 
       // Navigate to home view
-      _navigationService.navigateTo(Routes.secondView);
+      _navigationService.replaceWith(Routes.secondView);
     } else {
       log.e(authResponse);
       setValidationMessage(authResponse);

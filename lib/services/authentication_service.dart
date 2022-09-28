@@ -1,13 +1,11 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:jwt_decode/jwt_decode.dart';
 import 'package:stacked_architecture/app/app.locator.dart';
 import 'package:stacked_architecture/app/app.logger.dart';
 import 'package:stacked_architecture/constants/global_variables.dart';
 import 'package:stacked_architecture/enums/user_types.dart';
 import 'package:stacked_architecture/models/application_models.dart';
 import 'package:stacked_architecture/services/local_storage_service.dart';
-import 'package:stacked_architecture/services/user_service.dart';
 
 class AuthenticationService {
   final log = getLogger('AuthenticationService');
@@ -77,6 +75,10 @@ class AuthenticationService {
       log.e(e);
       return 'General login failure. Please try again.';
     }
+  }
+
+  Future<void> signOutUser() async {
+    await _localStorageService.removeValueFromStorage(key: 'x-auth-token');
   }
 
   dynamic _handleAuthenticationResponse(

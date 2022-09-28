@@ -87,7 +87,7 @@ class AuthLayout extends StatelessWidget {
                 onSignUpTapped != null ? 'Sign up now' : 'Login',
                 style: const TextStyle(
                   fontSize: 15,
-                  color: AppColors.primaryBlack,
+                  color: AppColors.primaryGreen,
                   fontWeight: FontWeight.w500,
                 ),
               )
