@@ -14,15 +14,18 @@ import 'package:stacked_services/stacked_services.dart';
 import '../ui/login/login_view.dart';
 import '../ui/second/second_view.dart';
 import '../ui/sign_up/sign_up_view.dart';
+import '../ui/startup/startup_view.dart';
 
 class Routes {
   static const String signUpView = '/sign-up-view';
-  static const String loginView = '/';
+  static const String loginView = '/login-view';
   static const String secondView = '/second-view';
+  static const String startupView = '/';
   static const all = <String>{
     signUpView,
     loginView,
     secondView,
+    startupView,
   };
 }
 
@@ -33,6 +36,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.signUpView, page: SignUpView),
     RouteDef(Routes.loginView, page: LoginView),
     RouteDef(Routes.secondView, page: SecondView),
+    RouteDef(Routes.startupView, page: StartupView),
   ];
   @override
   Map<Type, StackedRouteFactory> get pagesMap => _pagesMap;
@@ -58,6 +62,12 @@ class StackedRouter extends RouterBase {
     SecondView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const SecondView(),
+        settings: data,
+      );
+    },
+    StartupView: (data) {
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => const StartupView(),
         settings: data,
       );
     },
@@ -130,6 +140,22 @@ extension NavigatorStateExtension on NavigationService {
   }) async {
     return navigateTo(
       Routes.secondView,
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> navigateToStartupView({
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo(
+      Routes.startupView,
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,

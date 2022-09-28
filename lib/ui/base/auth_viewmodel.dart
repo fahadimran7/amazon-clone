@@ -16,7 +16,7 @@ abstract class AuthViewModel extends FormViewModel {
 
     if (!_isValidForm) {
       setValidationMessage(
-          'Authentication failed. Please check the values and try again.');
+          'Invalid email address or password. Please try again.');
       notifyListeners();
     } else {
       runAuthentication();

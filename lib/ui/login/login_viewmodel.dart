@@ -33,22 +33,21 @@ class LoginViewModel extends AuthViewModel {
       password: formValueMap['password'],
     );
 
-    if (authResponse['success'] == true) {
+    if (authResponse is bool) {
       log.v('Logged in successfully');
 
-      log.v(authResponse['msg']);
-
       // Save the token to shared prefs
-      final tokenSaved =
-          await _localStorageService.getValueFromStorage(key: 'x-auth-token');
+      final tokenSaved = await _localStorageService.getValueFromStorage(
+        key: 'x-auth-token',
+      );
 
       log.v('token saved and read from loginViewModel: $tokenSaved');
 
       // Navigate to home view
-
+      _navigationService.navigateTo(Routes.secondView);
     } else {
-      log.e(authResponse['error']);
-      setValidationMessage(authResponse['error']);
+      log.e(authResponse);
+      setValidationMessage(authResponse);
     }
 
     setBusy(false);

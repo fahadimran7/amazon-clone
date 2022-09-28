@@ -1,20 +1,21 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
+import 'package:jwt_decode/jwt_decode.dart';
 import 'package:stacked_architecture/app/app.locator.dart';
 import 'package:stacked_architecture/app/app.logger.dart';
 import 'package:stacked_architecture/constants/global_variables.dart';
 import 'package:stacked_architecture/enums/user_types.dart';
 import 'package:stacked_architecture/models/application_models.dart';
 import 'package:stacked_architecture/services/local_storage_service.dart';
+import 'package:stacked_architecture/services/user_service.dart';
 
 class AuthenticationService {
   final log = getLogger('AuthenticationService');
   final _localStorageService = locator<LocalStorageService>();
 
-  User? currentUser;
+  User? _user;
 
-  Future<Map<String, dynamic>> createUserWithEmailAndPassword(
+  Future<dynamic> createUserWithEmailAndPassword(
       {required String fullName,
       required String email,
       required String password}) async {
@@ -25,82 +26,71 @@ class AuthenticationService {
         password: password,
         type: UserType.user.toString(),
       );
-      http.Response res = await http.post(
-          Uri.parse('${GlobalVariables.uri}/api/v1/auth/signup'),
-          body: jsonEncode(user.toJson()),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8'
-          });
-
-      final authResponse = _handleAuthenticationResponse(
-        res: res,
-        onSuccess: () {
-          return {
-            'success': true,
-            'msg':
-                'Account created successfully. Please login with the same credentials.'
-          };
+      http.Response apiResponse = await http.post(
+        Uri.parse('${GlobalVariables.uri}/api/v1/auth/signup'),
+        body: jsonEncode(user.toJson()),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8'
         },
       );
 
-      return authResponse;
+      return _handleAuthenticationResponse(
+        response: apiResponse,
+        onSuccess: () {
+          return true;
+        },
+      );
     } catch (e) {
-      return {
-        'success': false,
-        'error': 'General sign up failure. Please try again.'
-      };
+      return 'General sign up failure. Please try again.';
     }
   }
 
-  Future<Map<String, dynamic>> loginUser(
+  Future<dynamic> loginUser(
       {required String email, required String password}) async {
     try {
-      http.Response res = await http.post(
-          Uri.parse('${GlobalVariables.uri}/api/v1/auth/login'),
-          body: jsonEncode({'email': email, 'password': password}),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8'
-          });
-
-      final authResponse = _handleAuthenticationResponse(
-        res: res,
-        onSuccess: () async {
-          currentUser = User.fromJson(jsonDecode(res.body)['user']);
-
-          log.v('Current user set: $currentUser');
-
-          await _localStorageService.saveToLocalStorage(
-              key: 'x-auth-token', value: currentUser!.token!);
-
-          return {'success': true, 'msg': jsonDecode(res.body)['user']};
+      http.Response apiResponse = await http.post(
+        Uri.parse('${GlobalVariables.uri}/api/v1/auth/login'),
+        body: jsonEncode({'email': email, 'password': password}),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8'
         },
       );
 
-      return authResponse;
+      return _handleAuthenticationResponse(
+        response: apiResponse,
+        onSuccess: () async {
+          _user = User.fromJson(jsonDecode(apiResponse.body)['user']);
+
+          try {
+            await _localStorageService.saveToLocalStorage(
+              key: 'x-auth-token',
+              value: _user!.token!,
+            );
+
+            return true;
+          } catch (e) {
+            return 'Error saving user token. Please try again';
+          }
+        },
+      );
     } catch (e) {
       log.e(e);
-      return {
-        'success': false,
-        'error': 'General login failure. Please try again.'
-      };
+      return 'General login failure. Please try again.';
     }
   }
 
-  _handleAuthenticationResponse(
-      {required http.Response res, required Function onSuccess}) {
-    final response = jsonDecode(res.body);
-    switch (res.statusCode) {
+  dynamic _handleAuthenticationResponse(
+      {required http.Response response, required Function onSuccess}) {
+    final data = jsonDecode(response.body);
+    switch (response.statusCode) {
       case 200:
         return onSuccess();
       case 400:
-        return {'success': false, 'error': response['msg']};
+        return data['msg'];
       case 500:
-        return {'success': false, 'error': response['msg']};
+        return data['msg'];
       default:
-        return {
-          'success': false,
-          'error': 'Something went wrong. Sorry for the inconvenience.'
-        };
+        return 'Something went wrong. Sorry for the inconvenience.';
     }
   }
 }

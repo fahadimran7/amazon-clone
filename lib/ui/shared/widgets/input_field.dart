@@ -23,6 +23,7 @@ class InputField extends StatelessWidget {
       decoration: InputDecoration(
         prefixIcon: Icon(
           icon,
+          color: Colors.black54,
         ),
         contentPadding: const EdgeInsets.all(20),
         border: OutlineInputBorder(
@@ -37,7 +38,7 @@ class InputField extends StatelessWidget {
           borderRadius: BorderRadius.circular(6),
           borderSide: const BorderSide(
             style: BorderStyle.solid,
-            color: AppColors.secondaryColor,
+            color: Colors.transparent,
           ),
         ),
         fillColor: const Color.fromARGB(255, 248, 248, 248),

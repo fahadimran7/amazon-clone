@@ -9,15 +9,13 @@ class StartupView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<StartupViewModel>.reactive(
       viewModelBuilder: () => StartupViewModel(),
+      onModelReady: (model) => model.runStartupLogic(),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           title: const Text('Amazon Clone'),
         ),
         body: const Center(
           child: Text('Startup View'),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: model.doSomething,
         ),
       ),
     );

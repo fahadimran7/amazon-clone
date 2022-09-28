@@ -3,9 +3,11 @@ import 'package:stacked_architecture/app/app.locator.dart';
 import 'package:stacked_architecture/ui/styles/app_colors.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'app/app.router.dart';
+import 'ui/shared/dialogs/setup_dialog_ui.dart';
 
 void main() {
   setupLocator();
+  setupDialogUi();
   runApp(const MyApp());
 }
 
