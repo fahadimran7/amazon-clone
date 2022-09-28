@@ -3,6 +3,7 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_architecture/ui/shared/auth_layout.dart';
 import 'package:stacked_architecture/ui/shared/widgets/input_field.dart';
+import 'package:stacked_architecture/ui/shared/widgets/input_label.dart';
 import 'package:stacked_architecture/ui/styles/ui_helpers.dart';
 import 'package:stacked_architecture/ui/sign_up/sign_up_viewmodel.dart';
 import 'package:stacked_architecture/utils/no_glow_scroll.dart';
@@ -35,27 +36,31 @@ class SignUpView extends StatelessWidget with $SignUpView {
                     AuthLayout(
                       form: Form(
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            const InputLabel(
+                              label: 'Full name',
+                            ),
                             InputField(
                               controller: fullNameController,
-                              label: 'Full Name',
-                              hintText: 'Enter your name',
-                              icon: Icons.person_rounded,
+                              hintText: 'Your name',
                             ),
                             verticalSpaceMedium,
+                            const InputLabel(
+                              label: 'Email',
+                            ),
                             InputField(
                               controller: emailController,
-                              label: 'Email',
-                              hintText: 'Enter your email address',
-                              icon: Icons.email_rounded,
+                              hintText: 'Your email address',
                             ),
                             verticalSpaceMedium,
+                            const InputLabel(
+                              label: 'Password',
+                            ),
                             InputField(
                               controller: passwordController,
-                              label: 'Password',
                               isPassword: true,
-                              hintText: 'Enter your password',
-                              icon: Icons.password_rounded,
+                              hintText: 'At least 6 characters',
                             ),
                           ],
                         ),
@@ -67,6 +72,7 @@ class SignUpView extends StatelessWidget with $SignUpView {
                       secondaryButtonText: 'Already have an account?',
                       onLoginTapped: model.navigateToLogin,
                       isBusy: model.isBusy,
+                      showTermsText: true,
                     ),
                   ],
                 ),

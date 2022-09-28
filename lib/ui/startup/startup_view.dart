@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_architecture/ui/startup/startup_viewmodel.dart';
-import 'package:stacked_architecture/ui/styles/app_colors.dart';
 import 'package:stacked_architecture/ui/styles/ui_helpers.dart';
 
 class StartupView extends StatelessWidget {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stacked_architecture/ui/styles/app_colors.dart';
 import 'package:stacked_architecture/ui/styles/ui_helpers.dart';
 import 'package:stacked_services/stacked_services.dart';
 import '../../../enums/basic_dialog_status.dart';
@@ -59,12 +60,14 @@ class _BasicDialogContent extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                 ),
               ),
-              verticalSpaceSmall,
+              verticalSpaceRegular,
               Text(
                 request.description ?? '',
                 textAlign: TextAlign.center,
-                style: const TextStyle(color: Colors.black54),
+                style: const TextStyle(
+                    color: Colors.black54, fontSize: 14, height: 1.4),
               ),
+              verticalSpaceSmall,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
@@ -74,13 +77,11 @@ class _BasicDialogContent extends StatelessWidget {
                           completer(DialogResponse(confirmed: false)),
                       child: Text(
                         request.secondaryButtonTitle!,
-                        style: const TextStyle(
-                          color: Colors.black54,
-                        ),
+                        style: const TextStyle(color: Colors.black54),
                       ),
                     ),
                   TextButton(
-                    style: TextButton.styleFrom(primary: Colors.green),
+                    style: TextButton.styleFrom(primary: Colors.black),
                     onPressed: () => completer(DialogResponse(confirmed: true)),
                     child: Text(
                       request.mainButtonTitle ?? '',
@@ -96,9 +97,9 @@ class _BasicDialogContent extends StatelessWidget {
             child: CircleAvatar(
               minRadius: 16,
               maxRadius: 28,
-              backgroundColor: _avatarIconColorByStatus(request.customData),
+              backgroundColor: _avatarIconColorByStatus(request.data),
               child: Icon(
-                _avatarIconDataByStatus(request.customData),
+                _avatarIconDataByStatus(request.data),
                 size: 28,
                 color: Colors.white,
               ),

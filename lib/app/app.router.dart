@@ -12,19 +12,19 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../ui/login/login_view.dart';
-import '../ui/second/second_view.dart';
+import '../ui/products/products_view.dart';
 import '../ui/sign_up/sign_up_view.dart';
 import '../ui/startup/startup_view.dart';
 
 class Routes {
   static const String signUpView = '/sign-up-view';
   static const String loginView = '/login-view';
-  static const String secondView = '/second-view';
+  static const String productsView = '/products-view';
   static const String startupView = '/';
   static const all = <String>{
     signUpView,
     loginView,
-    secondView,
+    productsView,
     startupView,
   };
 }
@@ -35,7 +35,7 @@ class StackedRouter extends RouterBase {
   final _routes = <RouteDef>[
     RouteDef(Routes.signUpView, page: SignUpView),
     RouteDef(Routes.loginView, page: LoginView),
-    RouteDef(Routes.secondView, page: SecondView),
+    RouteDef(Routes.productsView, page: ProductsView),
     RouteDef(Routes.startupView, page: StartupView),
   ];
   @override
@@ -59,9 +59,9 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
-    SecondView: (data) {
+    ProductsView: (data) {
       return CupertinoPageRoute<dynamic>(
-        builder: (context) => const SecondView(),
+        builder: (context) => const ProductsView(),
         settings: data,
       );
     },
@@ -131,7 +131,7 @@ extension NavigatorStateExtension on NavigationService {
     );
   }
 
-  Future<dynamic> navigateToSecondView({
+  Future<dynamic> navigateToProductsView({
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -139,7 +139,7 @@ extension NavigatorStateExtension on NavigationService {
         transition,
   }) async {
     return navigateTo(
-      Routes.secondView,
+      Routes.productsView,
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,

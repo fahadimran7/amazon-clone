@@ -5,6 +5,7 @@ import 'package:stacked_architecture/ui/login/login_view.form.dart';
 import 'package:stacked_architecture/ui/login/login_viewmodel.dart';
 import 'package:stacked_architecture/ui/shared/auth_layout.dart';
 import 'package:stacked_architecture/ui/shared/widgets/input_field.dart';
+import 'package:stacked_architecture/ui/shared/widgets/input_label.dart';
 import 'package:stacked_architecture/ui/styles/ui_helpers.dart';
 import 'package:stacked_architecture/utils/no_glow_scroll.dart';
 
@@ -36,20 +37,23 @@ class LoginView extends StatelessWidget with $LoginView {
                     AuthLayout(
                       form: Form(
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            const InputLabel(
+                              label: 'Email',
+                            ),
                             InputField(
                               controller: emailController,
-                              label: 'Email',
                               hintText: 'Enter your email address',
-                              icon: Icons.email_rounded,
                             ),
                             verticalSpaceMedium,
+                            const InputLabel(
+                              label: 'Password',
+                            ),
                             InputField(
                               controller: passwordController,
-                              label: 'Password',
                               isPassword: true,
                               hintText: 'Enter your password',
-                              icon: Icons.password_rounded,
                             ),
                           ],
                         ),
@@ -61,6 +65,7 @@ class LoginView extends StatelessWidget with $LoginView {
                       secondaryButtonText: 'Don\'t have an account?',
                       onSignUpTapped: model.navigateToSignUp,
                       isBusy: model.isBusy,
+                      showTermsText: false,
                     ),
                   ],
                 ),

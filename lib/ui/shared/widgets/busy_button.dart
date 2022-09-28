@@ -16,7 +16,9 @@ class BusyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
+        elevation: 0,
         minimumSize: const Size.fromHeight(50),
+        shape: const StadiumBorder(),
       ),
       onPressed: onMainButtonTapped,
       child: busy
@@ -31,8 +33,9 @@ class BusyButton extends StatelessWidget {
           : Text(
               mainButtonText,
               style: const TextStyle(
-                fontSize: 16,
+                fontSize: 14,
                 color: Colors.white,
+                fontWeight: FontWeight.w600,
               ),
             ),
     );

@@ -19,7 +19,7 @@ class StartupViewModel extends BaseViewModel {
         'The current user has been loaded successfully: ${_userService.currentUser}',
       );
 
-      return _navigationService.replaceWith(Routes.secondView);
+      // return _navigationService.replaceWith(Routes.productsView);
     }
 
     return _navigationService.replaceWith(Routes.loginView);
