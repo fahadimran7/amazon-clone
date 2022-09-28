@@ -21,9 +21,12 @@ class InputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       decoration: InputDecoration(
-        prefixIcon: Icon(
-          icon,
-          color: Colors.black54,
+        prefixIcon: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 10),
+          child: Icon(
+            icon,
+            color: Colors.black54,
+          ),
         ),
         contentPadding: const EdgeInsets.all(20),
         border: OutlineInputBorder(
@@ -33,13 +36,11 @@ class InputField extends StatelessWidget {
             style: BorderStyle.none,
           ),
         ),
-        floatingLabelBehavior: FloatingLabelBehavior.never,
+        floatingLabelBehavior: FloatingLabelBehavior.auto,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(6),
-          borderSide: const BorderSide(
-            style: BorderStyle.solid,
-            color: Colors.transparent,
-          ),
+          borderSide:
+              const BorderSide(style: BorderStyle.solid, color: Colors.black),
         ),
         fillColor: const Color.fromARGB(255, 248, 248, 248),
         filled: true,

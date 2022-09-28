@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:stacked_architecture/ui/styles/app_colors.dart';
 
 class BusyButton extends StatelessWidget {
   const BusyButton({
@@ -17,7 +16,7 @@ class BusyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        minimumSize: const Size.fromHeight(50), // NEW
+        minimumSize: const Size.fromHeight(50),
       ),
       onPressed: onMainButtonTapped,
       child: busy

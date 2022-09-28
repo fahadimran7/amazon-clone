@@ -43,8 +43,7 @@ class LoginView extends StatelessWidget with $LoginView {
                               hintText: 'Enter your email address',
                               icon: Icons.email_rounded,
                             ),
-                            verticalSpaceSmall,
-                            verticalSpaceTiny,
+                            verticalSpaceMedium,
                             InputField(
                               controller: passwordController,
                               label: 'Password',

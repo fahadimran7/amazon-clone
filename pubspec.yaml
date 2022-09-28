@@ -19,6 +19,7 @@ dependencies:
   http: ^0.13.5
   shared_preferences: ^2.0.15
   jwt_decode: ^0.3.1
+  flutter_native_splash: ^2.2.9
 
 dev_dependencies:
   flutter_test:
@@ -40,3 +41,16 @@ flutter:
         - asset: assets/fonts/SFPro-Semibold.ttf
         - asset: assets/fonts/SFPro-Bold.ttf
         - asset: assets/fonts/SFPro-Heavy.ttf
+
+  assets:
+    - assets/images/
+
+flutter_native_splash:
+  color: '#ffffff'
+  image: assets/images/amazon_logo_text.png
+
+  android_12:
+    image: assets/images/amazon_logo_text.png
+    color: '#ffffff'
+
+  fullscreen: true

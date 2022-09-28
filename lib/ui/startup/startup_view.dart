@@ -14,27 +14,9 @@ class StartupView extends StatelessWidget {
       onModelReady: (model) => model.runStartupLogic(),
       builder: (context, model, child) => Scaffold(
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
-              Text(
-                'Amazon Clone',
-                style: TextStyle(
-                  fontSize: 34,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              verticalSpaceTiny,
-              Text(
-                'Where shopping happens',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.primaryGreen,
-                ),
-              ),
-            ],
+          child: Image.asset(
+            'assets/images/amazon_logo.png',
+            width: screenWidthPercentage(context, percentage: 0.6),
           ),
         ),
       ),

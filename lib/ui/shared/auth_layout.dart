@@ -4,18 +4,18 @@ import 'package:stacked_architecture/ui/styles/app_colors.dart';
 import 'package:stacked_architecture/ui/styles/ui_helpers.dart';
 
 class AuthLayout extends StatelessWidget {
-  const AuthLayout(
-      {Key? key,
-      required this.form,
-      this.validationMessage,
-      required this.onMainButtonTapped,
-      required this.mainButtonText,
-      required this.title,
-      required this.secondaryButtonText,
-      this.onSignUpTapped,
-      this.onLoginTapped,
-      required this.isBusy})
-      : super(key: key);
+  const AuthLayout({
+    Key? key,
+    required this.form,
+    this.validationMessage,
+    required this.onMainButtonTapped,
+    required this.mainButtonText,
+    required this.title,
+    required this.secondaryButtonText,
+    this.onSignUpTapped,
+    this.onLoginTapped,
+    required this.isBusy,
+  }) : super(key: key);
   final Widget form;
   final String? validationMessage;
   final void Function() onMainButtonTapped;
@@ -87,7 +87,7 @@ class AuthLayout extends StatelessWidget {
                 onSignUpTapped != null ? 'Sign up now' : 'Login',
                 style: const TextStyle(
                   fontSize: 15,
-                  color: AppColors.primaryGreen,
+                  color: AppColors.primaryBlack,
                   fontWeight: FontWeight.w500,
                 ),
               )

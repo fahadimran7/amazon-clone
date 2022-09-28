@@ -42,16 +42,14 @@ class SignUpView extends StatelessWidget with $SignUpView {
                               hintText: 'Enter your name',
                               icon: Icons.person_rounded,
                             ),
-                            verticalSpaceSmall,
-                            verticalSpaceTiny,
+                            verticalSpaceMedium,
                             InputField(
                               controller: emailController,
                               label: 'Email',
                               hintText: 'Enter your email address',
                               icon: Icons.email_rounded,
                             ),
-                            verticalSpaceSmall,
-                            verticalSpaceTiny,
+                            verticalSpaceMedium,
                             InputField(
                               controller: passwordController,
                               label: 'Password',

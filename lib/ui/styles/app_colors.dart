@@ -25,7 +25,7 @@ class AppColors {
       900: Color(0xFF000000),
     },
   );
-  static const int _blackPrimaryValue = 0xffff9900;
+  static const int _blackPrimaryValue = 0xFF000000;
 
   static const MaterialColor primaryOrange = MaterialColor(
     _orangePrimaryValue,
