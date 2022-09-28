@@ -7,35 +7,44 @@ class InputField extends StatelessWidget {
     required this.controller,
     required this.label,
     this.isPassword,
+    required this.hintText,
+    required this.icon,
   }) : super(key: key);
 
   final TextEditingController controller;
   final String label;
+  final String hintText;
   final bool? isPassword;
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       decoration: InputDecoration(
-          contentPadding: const EdgeInsets.all(20),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(6),
-            borderSide: const BorderSide(
-              width: 0,
-              style: BorderStyle.none,
-            ),
+        prefixIcon: Icon(
+          icon,
+        ),
+        contentPadding: const EdgeInsets.all(20),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(6),
+          borderSide: const BorderSide(
+            width: 0,
+            style: BorderStyle.none,
           ),
-          floatingLabelBehavior: FloatingLabelBehavior.never,
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(6),
-            borderSide: const BorderSide(
-              style: BorderStyle.solid,
-              color: AppColors.secondaryColor,
-            ),
+        ),
+        floatingLabelBehavior: FloatingLabelBehavior.never,
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(6),
+          borderSide: const BorderSide(
+            style: BorderStyle.solid,
+            color: AppColors.secondaryColor,
           ),
-          fillColor: const Color.fromARGB(255, 248, 248, 248),
-          filled: true,
-          labelText: label),
+        ),
+        fillColor: const Color.fromARGB(255, 248, 248, 248),
+        filled: true,
+        labelText: label,
+        hintText: hintText,
+      ),
       controller: controller,
       obscureText: isPassword ?? false,
     );

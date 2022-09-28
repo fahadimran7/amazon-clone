@@ -41,7 +41,8 @@ class AuthLayout extends StatelessWidget {
           'Enter your email and password to create an account or login. Happy shopping :)',
           style: TextStyle(color: Colors.black54, height: 1.4, fontSize: 15),
         ),
-        verticalSpaceLarge,
+        verticalSpaceMedium,
+        verticalSpaceSmall,
         form,
         verticalSpaceMedium,
         Column(

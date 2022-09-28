@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stacked_architecture/ui/styles/app_colors.dart';
 
 class BusyButton extends StatelessWidget {
   const BusyButton({
@@ -30,7 +31,10 @@ class BusyButton extends StatelessWidget {
             )
           : Text(
               mainButtonText,
-              style: const TextStyle(fontSize: 16),
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.white,
+              ),
             ),
     );
   }

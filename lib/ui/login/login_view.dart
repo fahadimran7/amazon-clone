@@ -40,6 +40,8 @@ class LoginView extends StatelessWidget with $LoginView {
                             InputField(
                               controller: emailController,
                               label: 'Email',
+                              hintText: 'Enter your email address',
+                              icon: Icons.email_rounded,
                             ),
                             verticalSpaceSmall,
                             verticalSpaceTiny,
@@ -47,6 +49,8 @@ class LoginView extends StatelessWidget with $LoginView {
                               controller: passwordController,
                               label: 'Password',
                               isPassword: true,
+                              hintText: 'Enter your password',
+                              icon: Icons.password_rounded,
                             ),
                           ],
                         ),

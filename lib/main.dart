@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
           iconTheme: IconThemeData(color: Colors.black),
         ),
         scaffoldBackgroundColor: AppColors.backgroundColor,
-        primarySwatch: AppColors.primaryBlack,
+        primarySwatch: AppColors.primaryOrange,
       ),
       navigatorKey: StackedService.navigatorKey,
       onGenerateRoute: StackedRouter().onGenerateRoute,
