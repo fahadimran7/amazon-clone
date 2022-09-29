@@ -88,36 +88,44 @@ class ProductDetailsView extends StatelessWidget {
                 ),
               ),
               verticalSpaceRegular,
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
-                decoration: BoxDecoration(
-                  color: productDetails.inStock
-                      ? AppColors.badgeBackgroundSuccess
-                      : AppColors.badgeBackgroundDanger,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: Text(
-                  productDetails.inStock ? 'IN STOCK' : 'SOLD OUT',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: productDetails.inStock
-                        ? AppColors.badgeTextSuccess
-                        : AppColors.badgeTextDanger,
-                    fontWeight: FontWeight.w700,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
+                    decoration: BoxDecoration(
+                      color: productDetails.inStock
+                          ? AppColors.badgeBackgroundSuccess
+                          : AppColors.badgeBackgroundDanger,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Text(
+                      productDetails.inStock ? 'IN STOCK' : 'SOLD OUT',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: productDetails.inStock
+                            ? AppColors.badgeTextSuccess
+                            : AppColors.badgeTextDanger,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                   ),
-                ),
+                  Row(
+                    children: [
+                      _buildStars(productDetails.rating),
+                      horizontalSpaceTiny,
+                      Text(
+                        '(${productDetails.rating}/5.0)',
+                        style: const TextStyle(
+                          color: Colors.black54,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  )
+                ],
               ),
-              verticalSpaceRegular,
-              const Text(
-                'Rating',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Colors.black87,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              verticalSpaceTiny,
-              _buildStars(productDetails.rating),
               verticalSpaceRegular,
               const Text(
                 'Description',
@@ -130,7 +138,11 @@ class ProductDetailsView extends StatelessWidget {
               verticalSpaceSmall,
               Text(
                 productDetails.description!,
-                style: const TextStyle(color: Colors.black54, fontSize: 15),
+                style: const TextStyle(
+                  color: Colors.black54,
+                  fontSize: 15,
+                  height: 1.45,
+                ),
               ),
               const Spacer(),
               BusyButton(
@@ -157,6 +169,7 @@ _buildStars(rating) {
         const Icon(
           Icons.star_rate_rounded,
           color: Colors.amber,
+          size: 20,
         ),
       );
     } else {
@@ -164,6 +177,7 @@ _buildStars(rating) {
         const Icon(
           Icons.star_border_rounded,
           color: Colors.amber,
+          size: 20,
         ),
       );
     }

@@ -56,13 +56,18 @@ class CustomDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
+            leading: const Icon(Icons.person),
+            title: const Text('Your Profile'),
+            onTap: () {},
+          ),
+          ListTile(
             leading: const Icon(Icons.history),
             title: const Text('Purchase History'),
             onTap: () {},
           ),
           ListTile(
-            leading: const Icon(Icons.person),
-            title: const Text('Your Profile'),
+            leading: const Icon(Icons.favorite_border_rounded),
+            title: const Text('Favorites'),
             onTap: () {},
           ),
         ],
