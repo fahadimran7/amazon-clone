@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class ResponseHandler {
+class ApiHelpers {
   static dynamic handleAuthenticationResponse(
       {required http.Response response, required Function onSuccess}) {
     final data = jsonDecode(response.body);
@@ -15,5 +15,9 @@ class ResponseHandler {
       default:
         return 'Something went wrong. Sorry for the inconvenience.';
     }
+  }
+
+  static Map<String, String> setContentHeaders() {
+    return <String, String>{'Content-Type': 'application/json; charset=UTF-8'};
   }
 }

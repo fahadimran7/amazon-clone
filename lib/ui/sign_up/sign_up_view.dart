@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
-import 'package:stacked_architecture/ui/shared/auth_layout.dart';
+import 'package:stacked_architecture/ui/shared/layout/auth_layout.dart';
 import 'package:stacked_architecture/ui/shared/widgets/input_field.dart';
 import 'package:stacked_architecture/ui/shared/widgets/input_label.dart';
 import 'package:stacked_architecture/ui/styles/ui_helpers.dart';

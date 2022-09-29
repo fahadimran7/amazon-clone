@@ -8,6 +8,7 @@ import 'package:stacked_architecture/ui/product_details/product_details_view.dar
 import 'package:stacked_architecture/ui/products/products_view.dart';
 import 'package:stacked_architecture/ui/sign_up/sign_up_view.dart';
 import 'package:stacked_architecture/ui/startup/startup_view.dart';
+import 'package:stacked_architecture/ui/user_profile/user_profile_view.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 @StackedApp(routes: [
@@ -15,6 +16,7 @@ import 'package:stacked_services/stacked_services.dart';
   CupertinoRoute(page: LoginView),
   CupertinoRoute(page: ProductsView),
   CupertinoRoute(page: ProductDetailsView),
+  CupertinoRoute(page: UserProfileView),
   CupertinoRoute(page: StartupView, initial: true),
 ], dependencies: [
   LazySingleton(classType: NavigationService),

@@ -3,8 +3,8 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_architecture/models/application_models.dart';
 import 'package:stacked_architecture/ui/products/components/product_card.dart';
 import 'package:stacked_architecture/ui/products/products_viewmodel.dart';
-import 'package:stacked_architecture/ui/shared/layouts/custom_app_bar.dart';
-import 'package:stacked_architecture/ui/shared/layouts/custom_drawer.dart';
+import 'package:stacked_architecture/ui/shared/layout/custom_app_bar.dart';
+import 'package:stacked_architecture/ui/shared/layout/drawer/custom_drawer.dart';
 import 'package:stacked_architecture/utils/no_glow_scroll.dart';
 
 class ProductsView extends StatelessWidget {
@@ -39,7 +39,7 @@ class ProductsView extends StatelessWidget {
                       ],
                     ),
                   ),
-            drawer: const CustomDrawer(),
+            drawer: const CustomDrawerView(),
           ),
         );
       },

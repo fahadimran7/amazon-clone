@@ -3,7 +3,7 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_architecture/ui/login/login_view.form.dart';
 import 'package:stacked_architecture/ui/login/login_viewmodel.dart';
-import 'package:stacked_architecture/ui/shared/auth_layout.dart';
+import 'package:stacked_architecture/ui/shared/layout/auth_layout.dart';
 import 'package:stacked_architecture/ui/shared/widgets/input_field.dart';
 import 'package:stacked_architecture/ui/shared/widgets/input_label.dart';
 import 'package:stacked_architecture/ui/styles/ui_helpers.dart';

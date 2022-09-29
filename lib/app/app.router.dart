@@ -17,18 +17,21 @@ import '../ui/product_details/product_details_view.dart';
 import '../ui/products/products_view.dart';
 import '../ui/sign_up/sign_up_view.dart';
 import '../ui/startup/startup_view.dart';
+import '../ui/user_profile/user_profile_view.dart';
 
 class Routes {
   static const String signUpView = '/sign-up-view';
   static const String loginView = '/login-view';
   static const String productsView = '/products-view';
   static const String productDetailsView = '/product-details-view';
+  static const String userProfileView = '/user-profile-view';
   static const String startupView = '/';
   static const all = <String>{
     signUpView,
     loginView,
     productsView,
     productDetailsView,
+    userProfileView,
     startupView,
   };
 }
@@ -41,6 +44,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.loginView, page: LoginView),
     RouteDef(Routes.productsView, page: ProductsView),
     RouteDef(Routes.productDetailsView, page: ProductDetailsView),
+    RouteDef(Routes.userProfileView, page: UserProfileView),
     RouteDef(Routes.startupView, page: StartupView),
   ];
   @override
@@ -80,6 +84,16 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    UserProfileView: (data) {
+      var args = data.getArgs<UserProfileViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => UserProfileView(
+          key: args.key,
+          userProfileDetails: args.userProfileDetails,
+        ),
+        settings: data,
+      );
+    },
     StartupView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const StartupView(),
@@ -110,6 +124,13 @@ class ProductDetailsViewArguments {
   final Key? key;
   final Product productDetails;
   ProductDetailsViewArguments({this.key, required this.productDetails});
+}
+
+/// UserProfileView arguments holder class
+class UserProfileViewArguments {
+  final Key? key;
+  final User userProfileDetails;
+  UserProfileViewArguments({this.key, required this.userProfileDetails});
 }
 
 /// ************************************************************************
@@ -182,6 +203,26 @@ extension NavigatorStateExtension on NavigationService {
       Routes.productDetailsView,
       arguments:
           ProductDetailsViewArguments(key: key, productDetails: productDetails),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> navigateToUserProfileView({
+    Key? key,
+    required User userProfileDetails,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo(
+      Routes.userProfileView,
+      arguments: UserProfileViewArguments(
+          key: key, userProfileDetails: userProfileDetails),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,

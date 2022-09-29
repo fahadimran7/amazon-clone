@@ -6,7 +6,7 @@ import 'package:stacked_architecture/constants/app_constants.dart';
 import 'package:stacked_architecture/enums/user_types.dart';
 import 'package:stacked_architecture/models/application_models.dart';
 import 'package:stacked_architecture/services/local_storage_service.dart';
-import 'package:stacked_architecture/utils/response_handler.dart';
+import 'package:stacked_architecture/utils/api_helpers.dart';
 
 class AuthenticationService {
   final log = getLogger('AuthenticationService');
@@ -26,10 +26,10 @@ class AuthenticationService {
       http.Response apiResponse = await http.post(
         Uri.parse('$authBaseUrl/signup'),
         body: jsonEncode(user.toJson()),
-        headers: _setContentHeaders(),
+        headers: ApiHelpers.setContentHeaders(),
       );
 
-      return ResponseHandler.handleAuthenticationResponse(
+      return ApiHelpers.handleAuthenticationResponse(
         response: apiResponse,
         onSuccess: () {
           return true;
@@ -50,10 +50,10 @@ class AuthenticationService {
       http.Response apiResponse = await http.post(
         Uri.parse('$authBaseUrl/login'),
         body: jsonEncode(user.toJson()),
-        headers: _setContentHeaders(),
+        headers: ApiHelpers.setContentHeaders(),
       );
 
-      return ResponseHandler.handleAuthenticationResponse(
+      return ApiHelpers.handleAuthenticationResponse(
         response: apiResponse,
         onSuccess: () async {
           final savedUser = User.fromJson(jsonDecode(apiResponse.body)['user']);
@@ -86,8 +86,4 @@ class AuthenticationService {
 
     return true;
   }
-}
-
-_setContentHeaders() {
-  return <String, String>{'Content-Type': 'application/json; charset=UTF-8'};
 }
