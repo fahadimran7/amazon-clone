@@ -2,16 +2,15 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:stacked_architecture/app/app.locator.dart';
 import 'package:stacked_architecture/app/app.logger.dart';
-import 'package:stacked_architecture/constants/global_variables.dart';
+import 'package:stacked_architecture/constants/app_constants.dart';
 import 'package:stacked_architecture/enums/user_types.dart';
 import 'package:stacked_architecture/models/application_models.dart';
 import 'package:stacked_architecture/services/local_storage_service.dart';
+import 'package:stacked_architecture/utils/response_handler.dart';
 
 class AuthenticationService {
   final log = getLogger('AuthenticationService');
   final _localStorageService = locator<LocalStorageService>();
-
-  User? _user;
 
   Future<dynamic> createUserWithEmailAndPassword(
       {required String fullName,
@@ -25,14 +24,12 @@ class AuthenticationService {
         type: UserType.user.toString(),
       );
       http.Response apiResponse = await http.post(
-        Uri.parse('${GlobalVariables.uri}/api/v1/auth/signup'),
+        Uri.parse('$authBaseUrl/signup'),
         body: jsonEncode(user.toJson()),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8'
-        },
+        headers: _setContentHeaders(),
       );
 
-      return _handleAuthenticationResponse(
+      return ResponseHandler.handleAuthenticationResponse(
         response: apiResponse,
         onSuccess: () {
           return true;
@@ -46,29 +43,31 @@ class AuthenticationService {
   Future<dynamic> loginUser(
       {required String email, required String password}) async {
     try {
+      User user = User(
+        email: email,
+        password: password,
+      );
       http.Response apiResponse = await http.post(
-        Uri.parse('${GlobalVariables.uri}/api/v1/auth/login'),
-        body: jsonEncode({'email': email, 'password': password}),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8'
-        },
+        Uri.parse('$authBaseUrl/login'),
+        body: jsonEncode(user.toJson()),
+        headers: _setContentHeaders(),
       );
 
-      return _handleAuthenticationResponse(
+      return ResponseHandler.handleAuthenticationResponse(
         response: apiResponse,
         onSuccess: () async {
-          _user = User.fromJson(jsonDecode(apiResponse.body)['user']);
+          final savedUser = User.fromJson(jsonDecode(apiResponse.body)['user']);
 
-          try {
-            await _localStorageService.saveToLocalStorage(
-              key: 'x-auth-token',
-              value: _user!.token!,
-            );
+          final bool tokenSaved = await _localStorageService.saveToLocalStorage(
+            key: userTokenKey,
+            value: savedUser.token!,
+          );
 
-            return true;
-          } catch (e) {
+          if (!tokenSaved) {
             return 'Error saving user token. Please try again';
           }
+
+          return true;
         },
       );
     } catch (e) {
@@ -77,22 +76,18 @@ class AuthenticationService {
     }
   }
 
-  Future<void> signOutUser() async {
-    await _localStorageService.removeValueFromStorage(key: 'x-auth-token');
-  }
+  Future<bool> signOutUser() async {
+    final bool valueRemoved =
+        await _localStorageService.removeValueFromStorage(key: userTokenKey);
 
-  dynamic _handleAuthenticationResponse(
-      {required http.Response response, required Function onSuccess}) {
-    final data = jsonDecode(response.body);
-    switch (response.statusCode) {
-      case 200:
-        return onSuccess();
-      case 400:
-        return data['msg'];
-      case 500:
-        return data['msg'];
-      default:
-        return 'Something went wrong. Sorry for the inconvenience.';
+    if (!valueRemoved) {
+      return false;
     }
+
+    return true;
   }
+}
+
+_setContentHeaders() {
+  return <String, String>{'Content-Type': 'application/json; charset=UTF-8'};
 }

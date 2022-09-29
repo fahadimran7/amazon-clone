@@ -66,4 +66,8 @@ class AppColors {
   static const Color greyBackgroundCOlor = Color(0xffebecee);
   static var selectedNavBarColor = Colors.cyan[800]!;
   static const unselectedNavBarColor = Colors.black87;
+  static const badgeBackgroundDanger = Color.fromARGB(255, 254, 233, 233);
+  static const badgeTextDanger = Color.fromARGB(255, 255, 109, 98);
+  static const badgeBackgroundSuccess = Color.fromARGB(255, 227, 255, 228);
+  static const badgeTextSuccess = Color.fromARGB(255, 103, 187, 107);
 }

@@ -5,8 +5,6 @@ const jwt = require('jsonwebtoken');
 const getUserById = async (req, res, next) => {
   const userId = req.params.id;
 
-  console.log(userId);
-
   try {
     const user = await User.findById(userId);
     return res.status(200).json(user);

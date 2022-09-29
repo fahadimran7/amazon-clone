@@ -1,12 +1,22 @@
+import 'dart:developer';
+
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:stacked_architecture/app/app.logger.dart';
 
 class LocalStorageService {
+  final log = getLogger('LocalStorageService');
   late SharedPreferences prefs;
 
-  Future<void> saveToLocalStorage(
+  Future<bool> saveToLocalStorage(
       {required String key, required String value}) async {
     prefs = await SharedPreferences.getInstance();
-    await prefs.setString(key, value);
+    try {
+      await prefs.setString(key, value);
+      return true;
+    } catch (e) {
+      log.e(e);
+      return false;
+    }
   }
 
   Future<String?> getValueFromStorage({required String key}) async {
@@ -14,7 +24,13 @@ class LocalStorageService {
     return prefs.getString(key);
   }
 
-  Future<void> removeValueFromStorage({required String key}) async {
-    await prefs.remove(key);
+  Future<bool> removeValueFromStorage({required String key}) async {
+    try {
+      await prefs.remove(key);
+      return true;
+    } catch (e) {
+      log.e(e);
+      return false;
+    }
   }
 }

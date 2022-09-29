@@ -22,7 +22,7 @@ User _$UserFromJson(Map<String, dynamic> json) {
 mixin _$User {
   @JsonKey(name: '_id')
   String? get id => throw _privateConstructorUsedError;
-  String get fullName => throw _privateConstructorUsedError;
+  String? get fullName => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
   String? get address => throw _privateConstructorUsedError;
@@ -40,7 +40,7 @@ abstract class $UserCopyWith<$Res> {
       _$UserCopyWithImpl<$Res>;
   $Res call(
       {@JsonKey(name: '_id') String? id,
-      String fullName,
+      String? fullName,
       String email,
       String password,
       String? address,
@@ -74,7 +74,7 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
       fullName: fullName == freezed
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -106,7 +106,7 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
   @override
   $Res call(
       {@JsonKey(name: '_id') String? id,
-      String fullName,
+      String? fullName,
       String email,
       String password,
       String? address,
@@ -141,7 +141,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
       fullName: fullName == freezed
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       email: email == freezed
           ? _value.email
           : email // ignore: cast_nullable_to_non_nullable
@@ -171,7 +171,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
 class _$_User implements _User {
   _$_User(
       {@JsonKey(name: '_id') this.id = '',
-      required this.fullName,
+      this.fullName,
       required this.email,
       required this.password,
       this.address = '',
@@ -184,7 +184,7 @@ class _$_User implements _User {
   @JsonKey(name: '_id')
   final String? id;
   @override
-  final String fullName;
+  final String? fullName;
   @override
   final String email;
   @override
@@ -246,7 +246,7 @@ class _$_User implements _User {
 abstract class _User implements User {
   factory _User(
       {@JsonKey(name: '_id') final String? id,
-      required final String fullName,
+      final String? fullName,
       required final String email,
       required final String password,
       final String? address,
@@ -259,7 +259,7 @@ abstract class _User implements User {
   @JsonKey(name: '_id')
   String? get id;
   @override
-  String get fullName;
+  String? get fullName;
   @override
   String get email;
   @override
@@ -273,4 +273,288 @@ abstract class _User implements User {
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;
+}
+
+Product _$ProductFromJson(Map<String, dynamic> json) {
+  return _Product.fromJson(json);
+}
+
+/// @nodoc
+mixin _$Product {
+  @JsonKey(name: '_id')
+  String? get id => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
+  String get brand => throw _privateConstructorUsedError;
+  String get imageUrl => throw _privateConstructorUsedError;
+  double get price => throw _privateConstructorUsedError;
+  int get rating => throw _privateConstructorUsedError;
+  bool get inStock => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $ProductCopyWith<Product> get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ProductCopyWith<$Res> {
+  factory $ProductCopyWith(Product value, $Res Function(Product) then) =
+      _$ProductCopyWithImpl<$Res>;
+  $Res call(
+      {@JsonKey(name: '_id') String? id,
+      String name,
+      String brand,
+      String imageUrl,
+      double price,
+      int rating,
+      bool inStock,
+      String? description});
+}
+
+/// @nodoc
+class _$ProductCopyWithImpl<$Res> implements $ProductCopyWith<$Res> {
+  _$ProductCopyWithImpl(this._value, this._then);
+
+  final Product _value;
+  // ignore: unused_field
+  final $Res Function(Product) _then;
+
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? brand = freezed,
+    Object? imageUrl = freezed,
+    Object? price = freezed,
+    Object? rating = freezed,
+    Object? inStock = freezed,
+    Object? description = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      brand: brand == freezed
+          ? _value.brand
+          : brand // ignore: cast_nullable_to_non_nullable
+              as String,
+      imageUrl: imageUrl == freezed
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      price: price == freezed
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as double,
+      rating: rating == freezed
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as int,
+      inStock: inStock == freezed
+          ? _value.inStock
+          : inStock // ignore: cast_nullable_to_non_nullable
+              as bool,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$$_ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
+  factory _$$_ProductCopyWith(
+          _$_Product value, $Res Function(_$_Product) then) =
+      __$$_ProductCopyWithImpl<$Res>;
+  @override
+  $Res call(
+      {@JsonKey(name: '_id') String? id,
+      String name,
+      String brand,
+      String imageUrl,
+      double price,
+      int rating,
+      bool inStock,
+      String? description});
+}
+
+/// @nodoc
+class __$$_ProductCopyWithImpl<$Res> extends _$ProductCopyWithImpl<$Res>
+    implements _$$_ProductCopyWith<$Res> {
+  __$$_ProductCopyWithImpl(_$_Product _value, $Res Function(_$_Product) _then)
+      : super(_value, (v) => _then(v as _$_Product));
+
+  @override
+  _$_Product get _value => super._value as _$_Product;
+
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? brand = freezed,
+    Object? imageUrl = freezed,
+    Object? price = freezed,
+    Object? rating = freezed,
+    Object? inStock = freezed,
+    Object? description = freezed,
+  }) {
+    return _then(_$_Product(
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      brand: brand == freezed
+          ? _value.brand
+          : brand // ignore: cast_nullable_to_non_nullable
+              as String,
+      imageUrl: imageUrl == freezed
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      price: price == freezed
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as double,
+      rating: rating == freezed
+          ? _value.rating
+          : rating // ignore: cast_nullable_to_non_nullable
+              as int,
+      inStock: inStock == freezed
+          ? _value.inStock
+          : inStock // ignore: cast_nullable_to_non_nullable
+              as bool,
+      description: description == freezed
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_Product implements _Product {
+  _$_Product(
+      {@JsonKey(name: '_id') this.id = '',
+      required this.name,
+      required this.brand,
+      required this.imageUrl,
+      required this.price,
+      required this.rating,
+      required this.inStock,
+      this.description = ''});
+
+  factory _$_Product.fromJson(Map<String, dynamic> json) =>
+      _$$_ProductFromJson(json);
+
+  @override
+  @JsonKey(name: '_id')
+  final String? id;
+  @override
+  final String name;
+  @override
+  final String brand;
+  @override
+  final String imageUrl;
+  @override
+  final double price;
+  @override
+  final int rating;
+  @override
+  final bool inStock;
+  @override
+  @JsonKey()
+  final String? description;
+
+  @override
+  String toString() {
+    return 'Product(id: $id, name: $name, brand: $brand, imageUrl: $imageUrl, price: $price, rating: $rating, inStock: $inStock, description: $description)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_Product &&
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.brand, brand) &&
+            const DeepCollectionEquality().equals(other.imageUrl, imageUrl) &&
+            const DeepCollectionEquality().equals(other.price, price) &&
+            const DeepCollectionEquality().equals(other.rating, rating) &&
+            const DeepCollectionEquality().equals(other.inStock, inStock) &&
+            const DeepCollectionEquality()
+                .equals(other.description, description));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(brand),
+      const DeepCollectionEquality().hash(imageUrl),
+      const DeepCollectionEquality().hash(price),
+      const DeepCollectionEquality().hash(rating),
+      const DeepCollectionEquality().hash(inStock),
+      const DeepCollectionEquality().hash(description));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_ProductCopyWith<_$_Product> get copyWith =>
+      __$$_ProductCopyWithImpl<_$_Product>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_ProductToJson(
+      this,
+    );
+  }
+}
+
+abstract class _Product implements Product {
+  factory _Product(
+      {@JsonKey(name: '_id') final String? id,
+      required final String name,
+      required final String brand,
+      required final String imageUrl,
+      required final double price,
+      required final int rating,
+      required final bool inStock,
+      final String? description}) = _$_Product;
+
+  factory _Product.fromJson(Map<String, dynamic> json) = _$_Product.fromJson;
+
+  @override
+  @JsonKey(name: '_id')
+  String? get id;
+  @override
+  String get name;
+  @override
+  String get brand;
+  @override
+  String get imageUrl;
+  @override
+  double get price;
+  @override
+  int get rating;
+  @override
+  bool get inStock;
+  @override
+  String? get description;
+  @override
+  @JsonKey(ignore: true)
+  _$$_ProductCopyWith<_$_Product> get copyWith =>
+      throw _privateConstructorUsedError;
 }

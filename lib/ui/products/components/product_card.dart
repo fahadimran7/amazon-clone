@@ -1,14 +1,18 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:stacked_architecture/models/application_models.dart';
 import 'package:stacked_architecture/ui/styles/ui_helpers.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
     Key? key,
-    // required this.product,
+    required this.productDetails,
+    required this.navigateToProductDetails,
   }) : super(key: key);
 
-  // final ProductModel product;
+  final Product productDetails;
+  final void Function({required Product productDetails})
+      navigateToProductDetails;
 
   @override
   Widget build(BuildContext context) {
@@ -18,17 +22,16 @@ class ProductCard extends StatelessWidget {
       ),
       elevation: 6,
       child: InkWell(
-        onTap: () {},
+        onTap: () => navigateToProductDetails(productDetails: productDetails),
         child: Padding(
           padding: const EdgeInsets.all(6),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(10.0),
                 child: CachedNetworkImage(
-                  imageUrl:
-                      'https://unsplash.com/photos/LG88A2XgIXY/download?ixid=MnwxMjA3fDB8MXxzZWFyY2h8Nnx8c2hvZXN8ZW58MHx8fHwxNjY0MzM3OTA4&force=true&w=640',
+                  imageUrl: productDetails.imageUrl,
                   progressIndicatorBuilder: (context, url, downloadProgress) =>
                       Center(
                     child: CircularProgressIndicator(
@@ -40,17 +43,17 @@ class ProductCard extends StatelessWidget {
                   height: 180,
                 ),
               ),
-              verticalSpaceTiny,
-              const Text(
-                'Air Max Pro',
-                style: TextStyle(
+              verticalSpaceSmall,
+              Text(
+                productDetails.name,
+                style: const TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const Text(
-                'Nike',
-                style: TextStyle(
+              Text(
+                productDetails.brand,
+                style: const TextStyle(
                   fontSize: 15,
                   color: Colors.black38,
                   fontWeight: FontWeight.w600,
@@ -61,9 +64,9 @@ class ProductCard extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      '\$99.99',
-                      style: TextStyle(
+                    Text(
+                      '\$${productDetails.price}',
+                      style: const TextStyle(
                         fontSize: 19,
                         fontWeight: FontWeight.bold,
                       ),

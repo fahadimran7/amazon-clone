@@ -6,7 +6,7 @@ part 'application_models.g.dart';
 abstract class User with _$User {
   factory User({
     @Default('') @JsonKey(name: '_id') String? id,
-    required String fullName,
+    String? fullName,
     required String email,
     required String password,
     @Default('') String? address,
@@ -15,4 +15,21 @@ abstract class User with _$User {
   }) = _User;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+}
+
+@freezed
+abstract class Product with _$Product {
+  factory Product({
+    @Default('') @JsonKey(name: '_id') String? id,
+    required String name,
+    required String brand,
+    required String imageUrl,
+    required double price,
+    required int rating,
+    required bool inStock,
+    @Default('') String? description,
+  }) = _Product;
+
+  factory Product.fromJson(Map<String, dynamic> json) =>
+      _$ProductFromJson(json);
 }

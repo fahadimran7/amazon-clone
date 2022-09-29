@@ -11,7 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../models/application_models.dart';
 import '../ui/login/login_view.dart';
+import '../ui/product_details/product_details_view.dart';
 import '../ui/products/products_view.dart';
 import '../ui/sign_up/sign_up_view.dart';
 import '../ui/startup/startup_view.dart';
@@ -20,11 +22,13 @@ class Routes {
   static const String signUpView = '/sign-up-view';
   static const String loginView = '/login-view';
   static const String productsView = '/products-view';
+  static const String productDetailsView = '/product-details-view';
   static const String startupView = '/';
   static const all = <String>{
     signUpView,
     loginView,
     productsView,
+    productDetailsView,
     startupView,
   };
 }
@@ -36,6 +40,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.signUpView, page: SignUpView),
     RouteDef(Routes.loginView, page: LoginView),
     RouteDef(Routes.productsView, page: ProductsView),
+    RouteDef(Routes.productDetailsView, page: ProductDetailsView),
     RouteDef(Routes.startupView, page: StartupView),
   ];
   @override
@@ -65,6 +70,16 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    ProductDetailsView: (data) {
+      var args = data.getArgs<ProductDetailsViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => ProductDetailsView(
+          key: args.key,
+          productDetails: args.productDetails,
+        ),
+        settings: data,
+      );
+    },
     StartupView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const StartupView(),
@@ -88,6 +103,13 @@ class SignUpViewArguments {
 class LoginViewArguments {
   final Key? key;
   LoginViewArguments({this.key});
+}
+
+/// ProductDetailsView arguments holder class
+class ProductDetailsViewArguments {
+  final Key? key;
+  final Product productDetails;
+  ProductDetailsViewArguments({this.key, required this.productDetails});
 }
 
 /// ************************************************************************
@@ -140,6 +162,26 @@ extension NavigatorStateExtension on NavigationService {
   }) async {
     return navigateTo(
       Routes.productsView,
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> navigateToProductDetailsView({
+    Key? key,
+    required Product productDetails,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo(
+      Routes.productDetailsView,
+      arguments:
+          ProductDetailsViewArguments(key: key, productDetails: productDetails),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,

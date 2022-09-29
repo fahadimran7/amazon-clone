@@ -11,6 +11,7 @@ import 'package:stacked_services/stacked_services.dart';
 
 import '../services/authentication_service.dart';
 import '../services/local_storage_service.dart';
+import '../services/product_service.dart';
 import '../services/user_service.dart';
 
 final locator = StackedLocator.instance;
@@ -27,4 +28,5 @@ Future<void> setupLocator(
   locator.registerLazySingleton(() => LocalStorageService());
   locator.registerLazySingleton(() => DialogService());
   locator.registerLazySingleton(() => UserService());
+  locator.registerLazySingleton(() => ProductService());
 }

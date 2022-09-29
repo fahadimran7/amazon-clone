@@ -1,25 +1,54 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_architecture/models/application_models.dart';
 import 'package:stacked_architecture/ui/products/components/product_card.dart';
 import 'package:stacked_architecture/ui/products/products_viewmodel.dart';
+import 'package:stacked_architecture/ui/shared/layouts/custom_app_bar.dart';
+import 'package:stacked_architecture/ui/shared/layouts/custom_drawer.dart';
+import 'package:stacked_architecture/utils/no_glow_scroll.dart';
 
 class ProductsView extends StatelessWidget {
   const ProductsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder.reactive(
+    return ViewModelBuilder<ProductsViewModel>.reactive(
       viewModelBuilder: () => ProductsViewModel(),
-      builder: (context, model, child) => Scaffold(
-        body: _buildGridView(),
-      ),
+      onModelReady: (model) => model.getAllProducts(),
+      builder: (context, model, child) {
+        return ScrollConfiguration(
+          behavior: NoGlowBehavior(),
+          child: Scaffold(
+            appBar: const CustomAppBar(
+              enableActions: true,
+            ),
+            body: model.isBusy
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : RefreshIndicator(
+                    onRefresh: model.handleRefresh,
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: _buildGridView(
+                            products: model.products,
+                            model: model,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+            drawer: const CustomDrawer(),
+          ),
+        );
+      },
     );
   }
 }
 
-_buildGridView() {
+_buildGridView(
+    {required List<Product> products, required ProductsViewModel model}) {
   return GridView.builder(
     padding: const EdgeInsets.symmetric(
       horizontal: 10,
@@ -27,13 +56,16 @@ _buildGridView() {
     ),
     gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
       maxCrossAxisExtent: 200,
-      mainAxisExtent: 313,
+      mainAxisExtent: 300,
       crossAxisSpacing: 1,
       mainAxisSpacing: 1,
     ),
-    itemCount: 10,
+    itemCount: products.length,
     itemBuilder: (BuildContext ctx, index) {
-      return const ProductCard();
+      return ProductCard(
+        productDetails: products[index],
+        navigateToProductDetails: model.navigateToProductDetails,
+      );
     },
   );
 }

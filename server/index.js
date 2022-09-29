@@ -17,6 +17,7 @@ app.use(express.json());
 // Route middleware
 app.use('/api/v1/auth', require('./routes/auth'));
 app.use('/api/v1/users', require('./routes/users'));
+app.use('/api/v1/products', require('./routes/products'));
 
 // Setup server
 app.listen(PORT, '0.0.0.0', () => {
