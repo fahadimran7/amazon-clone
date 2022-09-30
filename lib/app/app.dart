@@ -3,6 +3,7 @@ import 'package:stacked_architecture/services/authentication_service.dart';
 import 'package:stacked_architecture/services/local_storage_service.dart';
 import 'package:stacked_architecture/services/product_service.dart';
 import 'package:stacked_architecture/services/user_service.dart';
+import 'package:stacked_architecture/ui/favorite_products/favorite_products_view.dart';
 import 'package:stacked_architecture/ui/login/login_view.dart';
 import 'package:stacked_architecture/ui/product_details/product_details_view.dart';
 import 'package:stacked_architecture/ui/products/products_view.dart';
@@ -17,6 +18,7 @@ import 'package:stacked_services/stacked_services.dart';
   CupertinoRoute(page: ProductsView),
   CupertinoRoute(page: ProductDetailsView),
   CupertinoRoute(page: UserProfileView),
+  CupertinoRoute(page: FavoriteProductsView),
   CupertinoRoute(page: StartupView, initial: true),
 ], dependencies: [
   LazySingleton(classType: NavigationService),

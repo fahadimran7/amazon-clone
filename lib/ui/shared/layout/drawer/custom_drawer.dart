@@ -73,7 +73,7 @@ class CustomDrawerView extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.favorite_border_rounded),
               title: const Text('Favorites'),
-              onTap: () {},
+              onTap: model.navigateToFavoriteProductsView,
             ),
             const Spacer(),
             Padding(

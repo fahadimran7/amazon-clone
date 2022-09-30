@@ -20,6 +20,16 @@ class CustomDrawerViewModel extends BaseViewModel {
     );
   }
 
+  void navigateToFavoriteProductsView() {
+    _navigationService.popRepeated(1);
+    _navigationService.navigateTo(
+      Routes.favoriteProductsView,
+      arguments: FavoriteProductsViewArguments(
+        favoritesList: _userService.currentUser!.favorites!,
+      ),
+    );
+  }
+
   void signOut() async {
     setBusy(true);
     final userLoggedOut = await _authenticationService.signOutUser();

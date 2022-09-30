@@ -12,6 +12,7 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../models/application_models.dart';
+import '../ui/favorite_products/favorite_products_view.dart';
 import '../ui/login/login_view.dart';
 import '../ui/product_details/product_details_view.dart';
 import '../ui/products/products_view.dart';
@@ -25,6 +26,7 @@ class Routes {
   static const String productsView = '/products-view';
   static const String productDetailsView = '/product-details-view';
   static const String userProfileView = '/user-profile-view';
+  static const String favoriteProductsView = '/favorite-products-view';
   static const String startupView = '/';
   static const all = <String>{
     signUpView,
@@ -32,6 +34,7 @@ class Routes {
     productsView,
     productDetailsView,
     userProfileView,
+    favoriteProductsView,
     startupView,
   };
 }
@@ -45,6 +48,7 @@ class StackedRouter extends RouterBase {
     RouteDef(Routes.productsView, page: ProductsView),
     RouteDef(Routes.productDetailsView, page: ProductDetailsView),
     RouteDef(Routes.userProfileView, page: UserProfileView),
+    RouteDef(Routes.favoriteProductsView, page: FavoriteProductsView),
     RouteDef(Routes.startupView, page: StartupView),
   ];
   @override
@@ -94,6 +98,16 @@ class StackedRouter extends RouterBase {
         settings: data,
       );
     },
+    FavoriteProductsView: (data) {
+      var args = data.getArgs<FavoriteProductsViewArguments>(nullOk: false);
+      return CupertinoPageRoute<dynamic>(
+        builder: (context) => FavoriteProductsView(
+          key: args.key,
+          favoritesList: args.favoritesList,
+        ),
+        settings: data,
+      );
+    },
     StartupView: (data) {
       return CupertinoPageRoute<dynamic>(
         builder: (context) => const StartupView(),
@@ -131,6 +145,13 @@ class UserProfileViewArguments {
   final Key? key;
   final User userProfileDetails;
   UserProfileViewArguments({this.key, required this.userProfileDetails});
+}
+
+/// FavoriteProductsView arguments holder class
+class FavoriteProductsViewArguments {
+  final Key? key;
+  final List<Product> favoritesList;
+  FavoriteProductsViewArguments({this.key, required this.favoritesList});
 }
 
 /// ************************************************************************
@@ -223,6 +244,26 @@ extension NavigatorStateExtension on NavigationService {
       Routes.userProfileView,
       arguments: UserProfileViewArguments(
           key: key, userProfileDetails: userProfileDetails),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> navigateToFavoriteProductsView({
+    Key? key,
+    required List<Product> favoritesList,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo(
+      Routes.favoriteProductsView,
+      arguments:
+          FavoriteProductsViewArguments(key: key, favoritesList: favoritesList),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
