@@ -16,26 +16,23 @@ class SignUpViewModel extends AuthViewModel {
   final _authenticationService = locator<AuthenticationService>();
   final _dialogService = locator<DialogService>();
 
-  void navigateToLogin() => _navigationService.back();
-
-  void hideSoftKeyboard() => FocusManager.instance.primaryFocus?.unfocus();
-
   @override
   void runAuthentication() async {
     setBusy(true);
 
-    final authResponse =
+    final dynamic authResponse =
         await _authenticationService.createUserWithEmailAndPassword(
       fullName: formValueMap['fullName'],
       email: formValueMap['email'],
       password: formValueMap['password'],
     );
 
+    // Account created
     if (authResponse is bool) {
-      // Display Dialog to show that account has been created and take user to login
       log.v('User account created successfully. Take them to login view.');
 
-      final dialogResult = await _dialogService.showCustomDialog(
+      final DialogResponse<dynamic>? dialogResult =
+          await _dialogService.showCustomDialog(
         variant: DialogType.basic,
         data: BasicDialogStatus.success,
         title: 'Account Created',
@@ -47,7 +44,9 @@ class SignUpViewModel extends AuthViewModel {
       if (dialogResult!.confirmed) {
         _navigationService.replaceWith(Routes.loginView);
       }
-    } else {
+    }
+    // Account creation error
+    else {
       log.e(authResponse);
       setValidationMessage(authResponse);
     }
@@ -66,4 +65,8 @@ class SignUpViewModel extends AuthViewModel {
       setIsValidForm(true);
     }
   }
+
+  void navigateToLogin() => _navigationService.back();
+
+  void hideSoftKeyboard() => FocusManager.instance.primaryFocus?.unfocus();
 }

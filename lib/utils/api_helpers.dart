@@ -1,14 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:stacked_architecture/app/app.locator.dart';
-import 'package:stacked_architecture/services/user_service.dart';
 
 class ApiHelpers {
-  static final _userService = locator<UserService>();
-
-  static dynamic handleAuthenticationResponse(
+  static dynamic handleApiResponse(
       {required http.Response response, required Function onSuccess}) {
-    final data = jsonDecode(response.body);
+    final dynamic data = jsonDecode(response.body);
     switch (response.statusCode) {
       case 200:
         return onSuccess();
@@ -27,10 +23,11 @@ class ApiHelpers {
     };
   }
 
-  static Map<String, String> setContentHeadersProtected() {
+  static Map<String, String> setContentHeadersWithAuthorization(
+      {required String token}) {
     return <String, String>{
       'Content-Type': 'application/json; charset=UTF-8',
-      'Authorization': 'Bearer ${_userService.currentUser!.token}'
+      'Authorization': 'Bearer $token'
     };
   }
 }

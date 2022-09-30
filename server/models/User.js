@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const { Product, ProductSchema } = require('./Product');
 
 const UserSchema = mongoose.Schema({
   fullName: {
@@ -33,6 +34,10 @@ const UserSchema = mongoose.Schema({
     type: String,
     enum: ['user', 'admin'],
     default: 'user',
+  },
+  favorites: {
+    type: [ProductSchema],
+    default: [],
   },
 });
 

@@ -25,9 +25,9 @@ mixin _$User {
   String? get fullName => throw _privateConstructorUsedError;
   String get email => throw _privateConstructorUsedError;
   String get password => throw _privateConstructorUsedError;
+  List<Product>? get favorites => throw _privateConstructorUsedError;
   String? get address => throw _privateConstructorUsedError;
   String? get type => throw _privateConstructorUsedError;
-  String? get token => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -43,9 +43,9 @@ abstract class $UserCopyWith<$Res> {
       String? fullName,
       String email,
       String password,
+      List<Product>? favorites,
       String? address,
-      String? type,
-      String? token});
+      String? type});
 }
 
 /// @nodoc
@@ -62,9 +62,9 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
     Object? fullName = freezed,
     Object? email = freezed,
     Object? password = freezed,
+    Object? favorites = freezed,
     Object? address = freezed,
     Object? type = freezed,
-    Object? token = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -83,6 +83,10 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
+      favorites: favorites == freezed
+          ? _value.favorites
+          : favorites // ignore: cast_nullable_to_non_nullable
+              as List<Product>?,
       address: address == freezed
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
@@ -90,10 +94,6 @@ class _$UserCopyWithImpl<$Res> implements $UserCopyWith<$Res> {
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as String?,
-      token: token == freezed
-          ? _value.token
-          : token // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -109,9 +109,9 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
       String? fullName,
       String email,
       String password,
+      List<Product>? favorites,
       String? address,
-      String? type,
-      String? token});
+      String? type});
 }
 
 /// @nodoc
@@ -129,9 +129,9 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
     Object? fullName = freezed,
     Object? email = freezed,
     Object? password = freezed,
+    Object? favorites = freezed,
     Object? address = freezed,
     Object? type = freezed,
-    Object? token = freezed,
   }) {
     return _then(_$_User(
       id: id == freezed
@@ -150,6 +150,10 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
           ? _value.password
           : password // ignore: cast_nullable_to_non_nullable
               as String,
+      favorites: favorites == freezed
+          ? _value._favorites
+          : favorites // ignore: cast_nullable_to_non_nullable
+              as List<Product>?,
       address: address == freezed
           ? _value.address
           : address // ignore: cast_nullable_to_non_nullable
@@ -157,10 +161,6 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res>
       type: type == freezed
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
-              as String?,
-      token: token == freezed
-          ? _value.token
-          : token // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -174,9 +174,10 @@ class _$_User implements _User {
       this.fullName,
       required this.email,
       required this.password,
+      final List<Product>? favorites,
       this.address = '',
-      this.type = '',
-      this.token = ''});
+      this.type = ''})
+      : _favorites = favorites;
 
   factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
 
@@ -189,19 +190,25 @@ class _$_User implements _User {
   final String email;
   @override
   final String password;
+  final List<Product>? _favorites;
+  @override
+  List<Product>? get favorites {
+    final value = _favorites;
+    if (value == null) return null;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   @JsonKey()
   final String? address;
   @override
   @JsonKey()
   final String? type;
-  @override
-  @JsonKey()
-  final String? token;
 
   @override
   String toString() {
-    return 'User(id: $id, fullName: $fullName, email: $email, password: $password, address: $address, type: $type, token: $token)';
+    return 'User(id: $id, fullName: $fullName, email: $email, password: $password, favorites: $favorites, address: $address, type: $type)';
   }
 
   @override
@@ -213,9 +220,10 @@ class _$_User implements _User {
             const DeepCollectionEquality().equals(other.fullName, fullName) &&
             const DeepCollectionEquality().equals(other.email, email) &&
             const DeepCollectionEquality().equals(other.password, password) &&
+            const DeepCollectionEquality()
+                .equals(other._favorites, _favorites) &&
             const DeepCollectionEquality().equals(other.address, address) &&
-            const DeepCollectionEquality().equals(other.type, type) &&
-            const DeepCollectionEquality().equals(other.token, token));
+            const DeepCollectionEquality().equals(other.type, type));
   }
 
   @JsonKey(ignore: true)
@@ -226,9 +234,9 @@ class _$_User implements _User {
       const DeepCollectionEquality().hash(fullName),
       const DeepCollectionEquality().hash(email),
       const DeepCollectionEquality().hash(password),
+      const DeepCollectionEquality().hash(_favorites),
       const DeepCollectionEquality().hash(address),
-      const DeepCollectionEquality().hash(type),
-      const DeepCollectionEquality().hash(token));
+      const DeepCollectionEquality().hash(type));
 
   @JsonKey(ignore: true)
   @override
@@ -249,9 +257,9 @@ abstract class _User implements User {
       final String? fullName,
       required final String email,
       required final String password,
+      final List<Product>? favorites,
       final String? address,
-      final String? type,
-      final String? token}) = _$_User;
+      final String? type}) = _$_User;
 
   factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
 
@@ -265,11 +273,11 @@ abstract class _User implements User {
   @override
   String get password;
   @override
+  List<Product>? get favorites;
+  @override
   String? get address;
   @override
   String? get type;
-  @override
-  String? get token;
   @override
   @JsonKey(ignore: true)
   _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;

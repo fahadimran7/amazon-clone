@@ -38,7 +38,7 @@ const createUserWithEmailAndPassword = async (req, res, next) => {
   }
 };
 
-const loginUser = async (req, res, next) => {
+const loginUserWithEmailAndPassword = async (req, res, next) => {
   const { email, password } = req.body;
 
   // Check if user with email exists in the database
@@ -69,7 +69,7 @@ const loginUser = async (req, res, next) => {
       process.env.JWT_SECRET
     );
 
-    return res.status(200).json({ user: { token, ...userFromDb._doc } });
+    return res.status(200).json({ token: token });
   } catch (e) {
     console.log(e);
     return res.status(500).json({
@@ -78,4 +78,21 @@ const loginUser = async (req, res, next) => {
   }
 };
 
-module.exports = { createUserWithEmailAndPassword, loginUser };
+const getLoggedInUser = async (req, res, next) => {
+  const userId = req.user.id;
+
+  try {
+    let user = await User.findById(userId);
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.status(500).json({
+      msg: 'Something went wrong. Sorry for the inconvenience.',
+    });
+  }
+};
+
+module.exports = {
+  createUserWithEmailAndPassword,
+  loginUserWithEmailAndPassword,
+  getLoggedInUser,
+};

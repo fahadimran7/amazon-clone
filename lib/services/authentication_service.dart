@@ -10,6 +10,7 @@ import 'package:stacked_architecture/utils/api_helpers.dart';
 
 class AuthenticationService {
   final log = getLogger('AuthenticationService');
+
   final _localStorageService = locator<LocalStorageService>();
 
   Future<dynamic> createUserWithEmailAndPassword(
@@ -23,19 +24,19 @@ class AuthenticationService {
         password: password,
         type: UserType.user.toString(),
       );
+
       http.Response apiResponse = await http.post(
         Uri.parse('$authBaseUrl/signup'),
         body: jsonEncode(user.toJson()),
         headers: ApiHelpers.setContentHeaders(),
       );
 
-      return ApiHelpers.handleAuthenticationResponse(
+      return ApiHelpers.handleApiResponse(
         response: apiResponse,
-        onSuccess: () {
-          return true;
-        },
+        onSuccess: () => true,
       );
     } catch (e) {
+      log.e(e);
       return 'General sign up failure. Please try again.';
     }
   }
@@ -47,25 +48,26 @@ class AuthenticationService {
         email: email,
         password: password,
       );
+
       http.Response apiResponse = await http.post(
         Uri.parse('$authBaseUrl/login'),
         body: jsonEncode(user.toJson()),
         headers: ApiHelpers.setContentHeaders(),
       );
 
-      return ApiHelpers.handleAuthenticationResponse(
+      return ApiHelpers.handleApiResponse(
         response: apiResponse,
         onSuccess: () async {
-          final savedUser = User.fromJson(jsonDecode(apiResponse.body)['user']);
+          // User from database
+          final token = jsonDecode(apiResponse.body)['token'];
 
+          // Save token to shared prefs
           final bool tokenSaved = await _localStorageService.saveToLocalStorage(
             key: userTokenKey,
-            value: savedUser.token!,
+            value: token,
           );
 
-          if (!tokenSaved) {
-            return 'Error saving user token. Please try again';
-          }
+          if (!tokenSaved) return 'Error saving user token. Please try again';
 
           return true;
         },
@@ -77,13 +79,11 @@ class AuthenticationService {
   }
 
   Future<bool> signOutUser() async {
-    final bool valueRemoved = await _localStorageService.removeValueFromStorage(
+    final bool tokenRemoved = await _localStorageService.removeValueFromStorage(
       key: userTokenKey,
     );
 
-    if (!valueRemoved) {
-      return false;
-    }
+    if (!tokenRemoved) return false;
 
     return true;
   }

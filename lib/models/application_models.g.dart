@@ -11,9 +11,11 @@ _$_User _$$_UserFromJson(Map<String, dynamic> json) => _$_User(
       fullName: json['fullName'] as String?,
       email: json['email'] as String,
       password: json['password'] as String,
+      favorites: (json['favorites'] as List<dynamic>?)
+          ?.map((e) => Product.fromJson(e as Map<String, dynamic>))
+          .toList(),
       address: json['address'] as String? ?? '',
       type: json['type'] as String? ?? '',
-      token: json['token'] as String? ?? '',
     );
 
 Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
@@ -21,9 +23,9 @@ Map<String, dynamic> _$$_UserToJson(_$_User instance) => <String, dynamic>{
       'fullName': instance.fullName,
       'email': instance.email,
       'password': instance.password,
+      'favorites': instance.favorites,
       'address': instance.address,
       'type': instance.type,
-      'token': instance.token,
     };
 
 _$_Product _$$_ProductFromJson(Map<String, dynamic> json) => _$_Product(

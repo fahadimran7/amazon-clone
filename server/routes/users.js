@@ -1,8 +1,13 @@
 const express = require('express');
-const router = express.Router();
-const { getUserById, updateUserProfile } = require('../controllers/users');
+const {
+  updateUserProfile,
+  addProductToFavorites,
+} = require('../controllers/users');
 const { protect } = require('../middleware/auth');
 
-router.route('/:id').get(getUserById).put(protect, updateUserProfile);
+const router = express.Router();
+
+router.route('/:id').put(protect, updateUserProfile);
+router.route('/:id/favorites/new').put(protect, addProductToFavorites);
 
 module.exports = router;

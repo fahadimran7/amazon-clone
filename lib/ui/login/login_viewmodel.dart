@@ -36,9 +36,9 @@ class LoginViewModel extends AuthViewModel {
     );
 
     if (authResponse is bool) {
-      log.v('Logged in successfully');
+      log.v('Logged in successfully...');
 
-      // Save the token to shared prefs
+      // Get the token to shared prefs
       final tokenSaved = await _localStorageService.getValueFromStorage(
         key: 'x-auth-token',
       );

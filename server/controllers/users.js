@@ -1,19 +1,4 @@
 const User = require('../models/User');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-
-const getUserById = async (req, res, next) => {
-  const userId = req.params.id;
-
-  try {
-    const user = await User.findById(userId);
-    return res.status(200).json(user);
-  } catch (error) {
-    return res.status(500).json({
-      msg: 'Something went wrong. Sorry for the inconvenience.',
-    });
-  }
-};
 
 const updateUserProfile = async (req, res, next) => {
   const { fullName, email, emailUpdated } = req.body;
@@ -57,4 +42,21 @@ const updateUserProfile = async (req, res, next) => {
   }
 };
 
-module.exports = { getUserById, updateUserProfile };
+const addProductToFavorites = async (req, res, next) => {
+  const userId = req.params.id;
+  const product = req.body;
+
+  try {
+    let user = await User.findById(userId);
+
+    user.favorites.push(product);
+
+    await user.save();
+
+    return res.status(200).json({
+      msg: 'Product added to favorites',
+    });
+  } catch (error) {}
+};
+
+module.exports = { updateUserProfile, addProductToFavorites };

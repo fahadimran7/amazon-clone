@@ -10,12 +10,12 @@ import 'package:stacked_architecture/utils/api_helpers.dart';
 
 class UserService {
   final log = getLogger('UserService');
-  User? _currentUser;
-
   final _localStorageService = locator<LocalStorageService>();
 
-  User? get currentUser => _currentUser;
+  User? _currentUser;
   String? _token;
+
+  User? get currentUser => _currentUser;
 
   Future<void> loadUserFromDisk() async {
     final userToken =
@@ -25,13 +25,10 @@ class UserService {
       log.v('No user token found.');
     } else {
       log.v('User token found. Decoding JWT...');
-
       log.v('userToken: $userToken');
 
       _token = userToken;
-
       Map<String, dynamic> payload = Jwt.parseJwt(userToken);
-
       log.v('payload: $payload');
 
       await _syncUserAccount(userId: payload['user']['id']);
@@ -43,13 +40,12 @@ class UserService {
 
     try {
       http.Response apiResponse = await http.get(
-        Uri.parse('$usersBaseUrl/$userId'),
+        Uri.parse('$authBaseUrl/me'),
+        headers: ApiHelpers.setContentHeadersWithAuthorization(token: _token!),
       );
 
-      var user = User.fromJson(jsonDecode(apiResponse.body));
-      user = user.copyWith(token: _token);
-
-      _currentUser = user;
+      // Set currentUser
+      _currentUser = User.fromJson(jsonDecode(apiResponse.body));
 
       log.v('Current user set $_currentUser');
     } catch (e) {
@@ -73,7 +69,9 @@ class UserService {
     try {
       http.Response apiResponse = await http.put(
         Uri.parse('$usersBaseUrl/$userId'),
-        headers: ApiHelpers.setContentHeadersProtected(),
+        headers: ApiHelpers.setContentHeadersWithAuthorization(
+          token: _token!,
+        ),
         body: jsonEncode({
           'email': email,
           'fullName': fullName,
@@ -83,12 +81,10 @@ class UserService {
 
       log.v(apiResponse.body);
 
-      return ApiHelpers.handleAuthenticationResponse(
+      return ApiHelpers.handleApiResponse(
         response: apiResponse,
         onSuccess: () {
-          var userToken = _currentUser!.token;
-          var updatedUser = User.fromJson(jsonDecode(apiResponse.body));
-          _currentUser = updatedUser.copyWith(token: userToken);
+          _currentUser = User.fromJson(jsonDecode(apiResponse.body));
           log.v('Current user set $_currentUser');
           return true;
         },

@@ -1,5 +1,5 @@
 class InputValidators {
-  static isValidEmail(email) {
+  static bool isValidEmail(email) {
     if (email == null ||
         email.isEmpty ||
         !RegExp(
@@ -11,7 +11,7 @@ class InputValidators {
     return true;
   }
 
-  static isValidPassword(password) {
+  static bool isValidPassword(password) {
     if (password == null || password.isEmpty) {
       return false;
     }
@@ -19,7 +19,7 @@ class InputValidators {
     return true;
   }
 
-  static isValidFullName(name) {
+  static bool isValidFullName(name) {
     if (name == null || name.isEmpty) {
       return false;
     }

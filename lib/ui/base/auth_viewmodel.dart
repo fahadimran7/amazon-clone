@@ -3,7 +3,7 @@ import 'package:stacked/stacked.dart';
 abstract class AuthViewModel extends FormViewModel {
   bool _isValidForm = false;
 
-  setIsValidForm(bool value) {
+  void setIsValidForm(bool value) {
     _isValidForm = value;
     notifyListeners();
   }
@@ -16,7 +16,8 @@ abstract class AuthViewModel extends FormViewModel {
 
     if (!_isValidForm) {
       setValidationMessage(
-          'Invalid email address or password. Please try again.');
+        'Invalid email address or password. Please try again.',
+      );
       notifyListeners();
     } else {
       runAuthentication();
@@ -25,6 +26,5 @@ abstract class AuthViewModel extends FormViewModel {
 
   // To be overriden in sign up and login view models
   void runAuthentication() {}
-
   void runValidations() {}
 }

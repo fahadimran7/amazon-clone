@@ -13,7 +13,6 @@ class UserProfileViewModel extends FormViewModel {
   final _navigationService = locator<NavigationService>();
   final _userService = locator<UserService>();
   final _dialogService = locator<DialogService>();
-
   bool _buttonBusy = false;
 
   get buttonBusy => _buttonBusy;
@@ -40,7 +39,7 @@ class UserProfileViewModel extends FormViewModel {
     setButtonBusy(true);
     log.v('formValueMap: $formValueMap');
 
-    final response = await _userService.updateUserProfile(
+    final dynamic response = await _userService.updateUserProfile(
       fullName: formValueMap['fullName'],
       email: formValueMap['email'],
       emailUpdated: formValueMap['email'] != email,
@@ -52,7 +51,8 @@ class UserProfileViewModel extends FormViewModel {
         'The currentUser from the UserProfileViewModel is: ${_userService.currentUser}',
       );
 
-      final dialogResult = await _dialogService.showCustomDialog(
+      final DialogResponse<dynamic>? dialogResult =
+          await _dialogService.showCustomDialog(
         variant: DialogType.basic,
         data: BasicDialogStatus.success,
         title: 'Profile Updated',

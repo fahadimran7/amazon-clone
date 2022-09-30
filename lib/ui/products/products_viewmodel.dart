@@ -16,7 +16,7 @@ class ProductsViewModel extends BaseViewModel {
 
   Future<void> getAllProducts() async {
     setBusy(true);
-    final products = await _productService.getAllProducts();
+    final List<Product>? products = await _productService.getAllProducts();
 
     if (products != null) {
       _products = products;
