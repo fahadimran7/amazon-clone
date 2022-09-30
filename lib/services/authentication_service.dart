@@ -77,8 +77,9 @@ class AuthenticationService {
   }
 
   Future<bool> signOutUser() async {
-    final bool valueRemoved =
-        await _localStorageService.removeValueFromStorage(key: userTokenKey);
+    final bool valueRemoved = await _localStorageService.removeValueFromStorage(
+      key: userTokenKey,
+    );
 
     if (!valueRemoved) {
       return false;

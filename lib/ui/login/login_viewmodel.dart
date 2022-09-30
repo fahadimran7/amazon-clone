@@ -3,6 +3,7 @@ import 'package:stacked_architecture/app/app.locator.dart';
 import 'package:stacked_architecture/app/app.logger.dart';
 import 'package:stacked_architecture/app/app.router.dart';
 import 'package:stacked_architecture/services/local_storage_service.dart';
+import 'package:stacked_architecture/services/user_service.dart';
 import 'package:stacked_architecture/utils/input_validators.dart';
 import 'package:stacked_architecture/services/authentication_service.dart';
 import 'package:stacked_architecture/ui/base/auth_viewmodel.dart';
@@ -14,6 +15,7 @@ class LoginViewModel extends AuthViewModel {
   final _navigationService = locator<NavigationService>();
   final _authenticationService = locator<AuthenticationService>();
   final _localStorageService = locator<LocalStorageService>();
+  final _userService = locator<UserService>();
 
   void navigateToSignUp() {
     _clearValidationMessages();
@@ -42,6 +44,9 @@ class LoginViewModel extends AuthViewModel {
       );
 
       log.v('token saved and read from loginViewModel: $tokenSaved');
+
+      // Set _currentUser
+      _userService.loadUserFromDisk();
 
       // Navigate to home view
       _navigationService.replaceWith(Routes.productsView);

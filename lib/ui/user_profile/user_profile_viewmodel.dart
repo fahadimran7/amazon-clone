@@ -41,10 +41,10 @@ class UserProfileViewModel extends FormViewModel {
     log.v('formValueMap: $formValueMap');
 
     final response = await _userService.updateUserProfile(
-        userId: userId,
-        fullName: formValueMap['fullName'],
-        email: formValueMap['email'],
-        emailUpdated: formValueMap['email'] != email);
+      fullName: formValueMap['fullName'],
+      email: formValueMap['email'],
+      emailUpdated: formValueMap['email'] != email,
+    );
 
     if (response is bool) {
       log.v('User profile updated successfully!');

@@ -18,9 +18,7 @@ class ProductService {
       final productList = <Product>[];
 
       for (final product in products) {
-        log.v(product);
         productList.add(Product.fromJson(product));
-        log.v('productList: $productList');
       }
 
       return productList;

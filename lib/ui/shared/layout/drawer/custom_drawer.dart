@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_architecture/ui/shared/layout/drawer/custom_drawer_viewmodel.dart';
+import 'package:stacked_architecture/ui/shared/widgets/busy_button.dart';
 import 'package:stacked_architecture/ui/styles/ui_helpers.dart';
 
 class CustomDrawerView extends StatelessWidget {
@@ -74,6 +75,15 @@ class CustomDrawerView extends StatelessWidget {
               title: const Text('Favorites'),
               onTap: () {},
             ),
+            const Spacer(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+              child: BusyButton(
+                onMainButtonTapped: model.signOut,
+                mainButtonText: 'Log out',
+                busy: model.isBusy,
+              ),
+            )
           ],
         ),
       ),

@@ -15,6 +15,7 @@ class UserService {
   final _localStorageService = locator<LocalStorageService>();
 
   User? get currentUser => _currentUser;
+  String? _token;
 
   Future<void> loadUserFromDisk() async {
     final userToken =
@@ -24,6 +25,10 @@ class UserService {
       log.v('No user token found.');
     } else {
       log.v('User token found. Decoding JWT...');
+
+      log.v('userToken: $userToken');
+
+      _token = userToken;
 
       Map<String, dynamic> payload = Jwt.parseJwt(userToken);
 
@@ -41,7 +46,10 @@ class UserService {
         Uri.parse('$usersBaseUrl/$userId'),
       );
 
-      _currentUser = User.fromJson(jsonDecode(apiResponse.body));
+      var user = User.fromJson(jsonDecode(apiResponse.body));
+      user = user.copyWith(token: _token);
+
+      _currentUser = user;
 
       log.v('Current user set $_currentUser');
     } catch (e) {
@@ -50,20 +58,22 @@ class UserService {
   }
 
   Future<dynamic> updateUserProfile({
-    required String userId,
     required String fullName,
     required String email,
     required bool emailUpdated,
   }) async {
-    log.v('userId passed in: $userId');
     log.v('fullName passed in: $fullName');
     log.v('email passed in: $email');
     log.v('emailUpdated passed in: $emailUpdated');
 
+    final userId = _currentUser!.id;
+
+    log.v('userId from currentUser is: $userId');
+
     try {
       http.Response apiResponse = await http.put(
         Uri.parse('$usersBaseUrl/$userId'),
-        headers: ApiHelpers.setContentHeaders(),
+        headers: ApiHelpers.setContentHeadersProtected(),
         body: jsonEncode({
           'email': email,
           'fullName': fullName,
@@ -76,7 +86,9 @@ class UserService {
       return ApiHelpers.handleAuthenticationResponse(
         response: apiResponse,
         onSuccess: () {
-          _currentUser = User.fromJson(jsonDecode(apiResponse.body));
+          var userToken = _currentUser!.token;
+          var updatedUser = User.fromJson(jsonDecode(apiResponse.body));
+          _currentUser = updatedUser.copyWith(token: userToken);
           log.v('Current user set $_currentUser');
           return true;
         },
