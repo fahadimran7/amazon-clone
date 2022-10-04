@@ -5,6 +5,7 @@ import 'package:stacked_architecture/models/application_models.dart';
 import 'package:stacked_architecture/services/authentication_service.dart';
 import 'package:stacked_architecture/services/local_storage_service.dart';
 import 'package:stacked_architecture/services/user_service.dart';
+import 'package:stacked_architecture/ui/login/login_viewmodel.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import 'test_helpers.mocks.dart';

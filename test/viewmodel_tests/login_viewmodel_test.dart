@@ -5,6 +5,8 @@ import 'package:stacked_architecture/ui/login/login_viewmodel.dart';
 
 import '../setup/test_helpers.dart';
 
+class MockLoginViewModel extends Mock implements LoginViewModel {}
+
 void main() {
   group('LoginViewModelTest', () {
     setUp(() => registerServices());
@@ -82,6 +84,7 @@ void main() {
         final navigationService = getAndRegisterNavigationService();
 
         final model = LoginViewModel();
+        final mockModel = MockLoginViewModel();
 
         model.formValueMap['email'] = 'test@example.com';
         model.formValueMap['password'] = '123456';
