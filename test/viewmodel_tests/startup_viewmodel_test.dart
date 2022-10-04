@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:stacked_architecture/app/app.router.dart';
 import 'package:stacked_architecture/ui/startup/startup_viewmodel.dart';
-
 import '../setup/test_helpers.dart';
 
 void main() {
