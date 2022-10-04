@@ -28,7 +28,7 @@ class LoginViewModel extends AuthViewModel {
   }
 
   @override
-  void runAuthentication() async {
+  Future runAuthentication() async {
     setBusy(true);
     final authResponse = await _authenticationService.loginUser(
       email: formValueMap['email'],
@@ -46,7 +46,7 @@ class LoginViewModel extends AuthViewModel {
       log.v('token saved and read from loginViewModel: $tokenSaved');
 
       // Set _currentUser
-      _userService.loadUserFromDisk();
+      await _userService.loadUserFromDisk();
 
       // Navigate to home view
       _navigationService.replaceWith(Routes.productsView);
