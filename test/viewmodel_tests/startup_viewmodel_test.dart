@@ -11,7 +11,8 @@ void main() {
     tearDown(() => unRegisterServices());
 
     group('runStartupLogic', () {
-      test('When called should check if we have currentUser on UserService',
+      test(
+          'Given a void function runStartupLogic, when called, then check if we have currentUser on UserService.',
           () async {
         final userService = getAndRegisterUserService();
         final model = StartupViewModel();
@@ -19,14 +20,17 @@ void main() {
         verify(userService.currentUser);
       });
 
-      test('When initialized should call loadUserFromDisk', () async {
+      test(
+          'Given a void function runStartupLogic, when called, then call loadUserFromDisk.',
+          () async {
         final userService = getAndRegisterUserService();
         final model = StartupViewModel();
         await model.runStartupLogic();
         verify(userService.loadUserFromDisk());
       });
 
-      test('When there is no user token on disk, should navigate to loginView',
+      test(
+          'Given a void function runStartupLogic, when called, then should navigate to loginView if no user session on disk.',
           () async {
         final navigationService = getAndRegisterNavigationService();
         final model = StartupViewModel();
@@ -35,7 +39,7 @@ void main() {
       });
 
       test(
-          'When there is a user token on disk, should navigate to productsView',
+          'Given a void function runStartupLogic, when called, should navigate to productsView if there is a user session on disk.',
           () async {
         getAndRegisterUserService(hasUserTokenOnDisk: true);
         final navigationService = getAndRegisterNavigationService();
