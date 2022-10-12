@@ -17,7 +17,7 @@ class SignUpViewModel extends AuthViewModel {
   final _dialogService = locator<DialogService>();
 
   @override
-  void runAuthentication() async {
+  Future<void> runAuthentication() async {
     setBusy(true);
 
     final dynamic authResponse =

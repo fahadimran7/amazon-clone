@@ -2,10 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:stacked_architecture/app/app.router.dart';
 import 'package:stacked_architecture/ui/login/login_viewmodel.dart';
-
 import '../setup/test_helpers.dart';
-
-class MockLoginViewModel extends Mock implements LoginViewModel {}
 
 void main() {
   group('LoginViewModelTest', () {
@@ -13,9 +10,7 @@ void main() {
     tearDown(() => unRegisterServices());
 
     group('navigateToSignUp', () {
-      test(
-          'Given the function navigateToSignUp, when called, then call notifyListeners to rebuild the UI',
-          () {
+      test('should call notifyListeners to rebuild the UI', () {
         bool called = false;
         final model = LoginViewModel();
         model.addListener(() {
@@ -24,9 +19,8 @@ void main() {
         model.navigateToSignUp();
         expect(called, true);
       });
-      test(
-          'Given the function navigateToSignUp, when called, then navigate to signUpView',
-          () {
+
+      test('should navigate to signUpView', () {
         final navigationService = getAndRegisterNavigationService();
         final model = LoginViewModel();
         model.navigateToSignUp();
@@ -35,9 +29,7 @@ void main() {
     });
 
     group('runAuthenticationLogic', () {
-      test(
-          'Given the function runAuthentication, when called, then call loginUser on the authenticationService.',
-          () async {
+      test('should call loginUser on the authenticationService.', () async {
         final authenticationService = getAndRegisterAuthenticationService();
         final model = LoginViewModel();
 
@@ -54,7 +46,7 @@ void main() {
       });
 
       test(
-          'Given the function loginUser, when returns a boolean, then call getValueFromStorage on the localStorageService.',
+          'should call getValueFromStorage on the localStorageService when user is logged in',
           () async {
         final authenticationService = getAndRegisterAuthenticationService();
         final localStorageService = getAndRegisterLocalStorageService();
@@ -77,14 +69,12 @@ void main() {
         );
       });
 
-      test(
-          'Given the function loginUser, when returns a non-boolean result, then should not navigate to productsView',
+      test('should not navigate to productsView when user is not logged in',
           () async {
         final authenticationService = getAndRegisterAuthenticationService();
         final navigationService = getAndRegisterNavigationService();
 
         final model = LoginViewModel();
-        final mockModel = MockLoginViewModel();
 
         model.formValueMap['email'] = 'test@example.com';
         model.formValueMap['password'] = '123456';
@@ -101,7 +91,7 @@ void main() {
       });
 
       test(
-          'Given the function getValueFromStorage, when returns a user token, then call loadUserFromDisk on the userService.',
+          'should call loadUserFromDisk on the userService when getValueFromStorage returns a user token',
           () async {
         final authenticationService = getAndRegisterAuthenticationService();
         final localStorageService = getAndRegisterLocalStorageService();
@@ -130,8 +120,7 @@ void main() {
         );
       });
 
-      test(
-          'Given the function loadUserFromDisk, when called and returns without exception, then navigate to productsView.',
+      test('should navigate to productsView when user loaded from disk',
           () async {
         final authenticationService = getAndRegisterAuthenticationService();
         final localStorageService = getAndRegisterLocalStorageService();

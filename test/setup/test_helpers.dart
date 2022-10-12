@@ -1,11 +1,12 @@
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:stacked_architecture/app/app.locator.dart';
+import 'package:stacked_architecture/enums/basic_dialog_status.dart';
+import 'package:stacked_architecture/enums/dialog_type.dart';
 import 'package:stacked_architecture/models/application_models.dart';
 import 'package:stacked_architecture/services/authentication_service.dart';
 import 'package:stacked_architecture/services/local_storage_service.dart';
 import 'package:stacked_architecture/services/user_service.dart';
-import 'package:stacked_architecture/ui/login/login_viewmodel.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import 'test_helpers.mocks.dart';
@@ -15,6 +16,8 @@ import 'test_helpers.mocks.dart';
   MockSpec<NavigationService>(),
   MockSpec<AuthenticationService>(),
   MockSpec<LocalStorageService>(),
+  MockSpec<DialogService>(),
+  MockSpec<DialogResponse>(),
 ])
 void _removeRegistrationIfExists<T extends Object>() {
   if (locator.isRegistered<T>()) {
@@ -39,9 +42,15 @@ NavigationService getAndRegisterNavigationService() {
   return service;
 }
 
-AuthenticationService getAndRegisterAuthenticationService() {
+AuthenticationService getAndRegisterAuthenticationService(
+    {bool accountCreationSuccess = true}) {
   _removeRegistrationIfExists<AuthenticationService>();
   final MockAuthenticationService service = MockAuthenticationService();
+  when(service.createUserWithEmailAndPassword(
+          fullName: 'Test Account',
+          email: 'test@example.com',
+          password: '123456'))
+      .thenAnswer((_) async => Future.value(accountCreationSuccess));
   locator.registerSingleton<AuthenticationService>(service);
   return service;
 }
@@ -53,11 +62,27 @@ LocalStorageService getAndRegisterLocalStorageService() {
   return service;
 }
 
+DialogService getAndRegisterDialogService() {
+  _removeRegistrationIfExists<DialogService>();
+  final MockDialogService service = MockDialogService();
+  when(service.showCustomDialog(
+    variant: DialogType.basic,
+    data: BasicDialogStatus.success,
+    title: 'Account Created',
+    description:
+        'You\'re account has been created successfully. You can now login and start using the app.',
+    mainButtonTitle: 'Login Now',
+  )).thenAnswer((_) async => MockDialogResponse());
+  locator.registerSingleton<DialogService>(service);
+  return service;
+}
+
 void registerServices() {
   getAndRegisterNavigationService();
   getAndRegisterUserService();
   getAndRegisterAuthenticationService();
   getAndRegisterLocalStorageService();
+  getAndRegisterDialogService();
 }
 
 void unRegisterServices() {
@@ -65,4 +90,5 @@ void unRegisterServices() {
   locator.unregister<UserService>();
   locator.unregister<AuthenticationService>();
   locator.unregister<LocalStorageService>();
+  locator.unregister<DialogService>();
 }
