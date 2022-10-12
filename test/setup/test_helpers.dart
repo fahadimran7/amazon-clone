@@ -50,7 +50,8 @@ AuthenticationService getAndRegisterAuthenticationService(
           fullName: 'Test Account',
           email: 'test@example.com',
           password: '123456'))
-      .thenAnswer((_) async => Future.value(accountCreationSuccess));
+      .thenAnswer(
+          (_) async => Future.value(accountCreationSuccess ? true : 'Error'));
   locator.registerSingleton<AuthenticationService>(service);
   return service;
 }

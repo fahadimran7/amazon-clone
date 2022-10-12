@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:stacked_architecture/app/app.locator.dart';
 import 'package:stacked_architecture/app/app.router.dart';
 import 'package:stacked_architecture/enums/basic_dialog_status.dart';
 import 'package:stacked_architecture/enums/dialog_type.dart';
@@ -62,6 +61,51 @@ void main() {
               'You\'re account has been created successfully. You can now login and start using the app.',
           mainButtonTitle: 'Login Now',
         ));
+      });
+
+      test('should navigate to productsView when account created', () async {
+        getAndRegisterAuthenticationService();
+        getAndRegisterDialogService();
+        final navigationService = getAndRegisterNavigationService();
+        final model = SignUpViewModel();
+
+        model.formValueMap['fullName'] = 'Test Account';
+        model.formValueMap['email'] = 'test@example.com';
+        model.formValueMap['password'] = '123456';
+
+        await model.runAuthentication();
+        verify(navigationService.replaceWith(Routes.loginView));
+      });
+
+      test(
+          'should set validation message on the viewmodel when account creation fails',
+          () async {
+        getAndRegisterAuthenticationService(accountCreationSuccess: false);
+        final model = SignUpViewModel();
+
+        model.formValueMap['fullName'] = 'Test Account';
+        model.formValueMap['email'] = 'test@example.com';
+        model.formValueMap['password'] = '123456';
+
+        await model.runAuthentication();
+
+        expect(model.validationMessage, isNotNull);
+        expect(model.validationMessage, 'Error');
+      });
+
+      test('should stay on signUpView if account creation fails', () async {
+        getAndRegisterAuthenticationService(accountCreationSuccess: false);
+        final navigationService = getAndRegisterNavigationService();
+
+        final model = SignUpViewModel();
+
+        model.formValueMap['fullName'] = 'Test Account';
+        model.formValueMap['email'] = 'test@example.com';
+        model.formValueMap['password'] = '123456';
+
+        await model.runAuthentication();
+
+        verifyNever(navigationService.replaceWith(Routes.loginView));
       });
     });
   });

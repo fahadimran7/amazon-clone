@@ -41,7 +41,7 @@ class SignUpViewModel extends AuthViewModel {
         mainButtonTitle: 'Login Now',
       );
 
-      if (dialogResult!.confirmed) {
+      if (dialogResult != null) {
         _navigationService.replaceWith(Routes.loginView);
       }
     }
