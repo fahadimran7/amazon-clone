@@ -36,6 +36,18 @@ class CustomDrawerView extends StatelessWidget {
                             child: CircularProgressIndicator(
                                 value: downloadProgress.progress),
                           ),
+                          errorWidget: (BuildContext context, String url,
+                                  dynamic error) =>
+                              Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey[200],
+                            ),
+                            child: const Icon(
+                              Icons.person,
+                              color: Colors.grey,
+                              size: 34,
+                            ),
+                          ),
                           fit: BoxFit.cover,
                           width: 80,
                           height: 80,

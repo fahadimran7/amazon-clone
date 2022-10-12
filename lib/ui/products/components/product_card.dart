@@ -38,6 +38,18 @@ class ProductCard extends StatelessWidget {
                       value: downloadProgress.progress,
                     ),
                   ),
+                  errorWidget:
+                      (BuildContext context, String url, dynamic error) =>
+                          Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                    ),
+                    child: const Icon(
+                      Icons.error_rounded,
+                      color: Colors.grey,
+                      size: 34,
+                    ),
+                  ),
                   fit: BoxFit.cover,
                   width: double.infinity,
                   height: 180,

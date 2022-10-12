@@ -29,18 +29,28 @@ class FavoriteProductsView extends StatelessWidget {
                     onBackPressed: model.navigateBack,
                   ),
                   verticalSpaceSmall,
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: favoritesList.length,
-                      itemBuilder: (context, index) {
-                        return FavoriteProductCard(
-                          productDetails: favoritesList[index],
-                          navigateToProductDetails:
-                              model.navigateToProductDetails,
-                        );
-                      },
-                    ),
-                  )
+                  model.isBusy
+                      ? const Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : favoritesList.isNotEmpty
+                          ? Expanded(
+                              child: ListView.builder(
+                                itemCount: favoritesList.length,
+                                itemBuilder: (context, index) {
+                                  return FavoriteProductCard(
+                                    productDetails: favoritesList[index],
+                                    navigateToProductDetails:
+                                        model.navigateToProductDetails,
+                                  );
+                                },
+                              ),
+                            )
+                          : const Expanded(
+                              child: Center(
+                                child: Text('No favorite products to show :('),
+                              ),
+                            )
                 ],
               ),
             ),

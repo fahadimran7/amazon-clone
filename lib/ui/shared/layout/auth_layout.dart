@@ -88,6 +88,7 @@ class AuthLayout extends StatelessWidget {
           onMainButtonTapped: onLoginTapped ?? onSignUpTapped!,
           mainButtonText: onSignUpTapped != null ? 'Create Account' : 'Login',
         ),
+        verticalSpaceMedium,
       ],
     );
   }
