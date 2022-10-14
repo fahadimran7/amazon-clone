@@ -43,19 +43,22 @@ class ProductDetailsView extends StatelessWidget {
                 ],
               ),
               verticalSpaceMedium,
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10.0),
-                child: CachedNetworkImage(
-                  imageUrl: productDetails.imageUrl,
-                  progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      Center(
-                    child: CircularProgressIndicator(
-                      value: downloadProgress.progress,
+              Hero(
+                tag: 'shoeImage',
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: CachedNetworkImage(
+                    imageUrl: productDetails.imageUrl,
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) => Center(
+                      child: CircularProgressIndicator(
+                        value: downloadProgress.progress,
+                      ),
                     ),
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: 280,
                   ),
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                  height: 280,
                 ),
               ),
               verticalSpaceRegular,

@@ -56,7 +56,7 @@ _buildGridView(
     ),
     gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
       maxCrossAxisExtent: 200,
-      mainAxisExtent: 300,
+      mainAxisExtent: 316,
       crossAxisSpacing: 1,
       mainAxisSpacing: 1,
     ),

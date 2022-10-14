@@ -28,31 +28,34 @@ class ProductCard extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10.0),
-                child: CachedNetworkImage(
-                  imageUrl: productDetails.imageUrl,
-                  progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      Center(
-                    child: CircularProgressIndicator(
-                      value: downloadProgress.progress,
+              Hero(
+                tag: 'shoeImage',
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: CachedNetworkImage(
+                    imageUrl: productDetails.imageUrl,
+                    progressIndicatorBuilder:
+                        (context, url, downloadProgress) => Center(
+                      child: CircularProgressIndicator(
+                        value: downloadProgress.progress,
+                      ),
                     ),
+                    errorWidget:
+                        (BuildContext context, String url, dynamic error) =>
+                            Container(
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                      ),
+                      child: const Icon(
+                        Icons.error_rounded,
+                        color: Colors.grey,
+                        size: 34,
+                      ),
+                    ),
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: 180,
                   ),
-                  errorWidget:
-                      (BuildContext context, String url, dynamic error) =>
-                          Container(
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                    ),
-                    child: const Icon(
-                      Icons.error_rounded,
-                      color: Colors.grey,
-                      size: 34,
-                    ),
-                  ),
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                  height: 180,
                 ),
               ),
               verticalSpaceSmall,
